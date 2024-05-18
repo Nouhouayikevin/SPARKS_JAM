@@ -12,7 +12,7 @@ void creator(new_struct *hunter)
 {
     sfVideoMode mode = {1920, 1080, 64};
     hunter->win = sfRenderWindow_create(mode, "RMV", sfResize | sfClose, NULL);
-    hunter->game = sfTexture_createFromFile("res/black.jpg", NULL);
+    hunter->game = sfTexture_createFromFile("res/lack.jpg", NULL);
     hunter->sprite_game = sfSprite_create();
     sfSprite_setTexture(hunter->sprite_game, hunter->game, sfTrue);
 }
