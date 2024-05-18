@@ -7,52 +7,42 @@
 
 #include "my.h"
 
-/*void move_rect(sfIntRect * rect , int offset, int max_value)
+my_text *init_text(sfVector2f position, unsigned int size, char *str,
+char *filename)
 {
-    if (rect->left < max_value) {
-        rect->left += offset;
-    } else {
-        rect->left = 0;
-    }
+    sfUint32 style; my_text *texte = malloc(sizeof(my_text));
+    texte -> text = sfText_create(); texte->actif = sfTrue;
+    sfFont *ft = sfFont_createFromFile(filename);
+    sfColor gris = sfColor_fromRGB(205,204,198);
+    texte -> button_status = sfFalse; texte -> color = sfWhite;
+    texte -> active_color = sfColor_fromRGB(51,51,51);
+    texte -> survol_color = sfColor_fromRGB(205,204,198);
+    sfText_setPosition(texte -> text, position);
+    sfText_setFillColor(texte -> text, texte -> survol_color);
+    sfText_setOutlineColor(texte -> text, sfRed);
+    sfText_setOutlineThickness(texte -> text, 3);
+    sfText_setStyle(texte -> text, style);
+    sfText_setString(texte -> text, str);
+    sfText_setFont(texte -> text, ft);
+    sfText_setCharacterSize(texte -> text, size);
+    return texte;
 }
-
-sfIntRect new_condition(sfIntRect rect, player *gamer)
+my_text **def_texts(my_text **tab_of_text)
 {
-    if (gamer->seconds > 0.1) {
-        move_rect(&rect, 40, 160);
-        sfSprite_setTextureRect(gamer->player, rect);
-        sfClock_restart(gamer ->clock);
-    }
-    return rect;
+    tab_of_text[0] = init_text((sfVector2f){590, 210}, 80,\
+    "OU REACH THE GOAL","res/DS Stamper.ttf");
+    tab_of_text[1] = init_text((sfVector2f){600, 220},50,\
+    "YOU REACH THE GOAL !!!", "res/DS Stamper.ttf");
+    tab_of_text[2] = init_text((sfVector2f){600, 380},50,\
+     "keep a mentality of a winner that you are....", "res/DS Stamper.ttf");
+    tab_of_text[3] = init_text((sfVector2f){600, 500},50,\
+    "Therefore YOU are a AUTHENTIC , OLYMPIC player......", "res/DS Stamper.ttf");
+    tab_of_text[4] = init_text((sfVector2f){600, 620},50,\
+    "see you soon for next challenges........", "res/DS Stamper.ttf");
+    tab_of_text[5] = init_text((sfVector2f){800, 150},70,\
+    "VOLUME", "res/DS Stamper.ttf");
+    tab_of_text[6] = init_text((sfVector2f){800, 500},70,\
+    "screen", "res/DS Stamper.ttf");
+    tab_of_text[7] = init_text((sfVector2f){200, 500},70,\
+    "for this quest kill 20 bird\nfor eat", "res/DS Stamper.ttf");
 }
-
-sfIntRect condition1(sfIntRect rect,player *g)
-{
-    if (sfKeyboard_isKeyPressed(sfKeyDown)) {
-        rect.top = 0; g ->mouve.y = g ->mouve.y + 1.5;
-        rect = new_condition(rect, g);
-        sfSprite_setPosition(g ->player,g ->mouve);
-    } if (sfKeyboard_isKeyPressed(sfKeyLeft)) {
-        rect.top = 40; g ->mouve.x = g ->mouve.x - 1.5;
-        rect = new_condition(rect, g);
-        sfSprite_setPosition(g ->player,g ->mouve);
-    }
-    return rect;
-}
-
-sfIntRect player_func(sfIntRect rect, player *gamer)
-{
-    gamer ->mouve = sfSprite_getPosition(gamer ->player);
-    float x = (gamer ->mouve.x) / 40; float y = (gamer ->mouve.y) / 40;
-    sfVector2i collision = {(int){x}, (int) {y}};
-    rect = condition1(rect,gamer);
-    if (sfKeyboard_isKeyPressed(sfKeyRight)) {
-        rect.top = 80; gamer ->mouve.x = gamer ->mouve.x + 1.5;
-        rect = new_condition(rect, gamer);
-        sfSprite_setPosition(gamer ->player,gamer ->mouve);
-    } if (sfKeyboard_isKeyPressed(sfKeyUp)) {
-        rect.top = 120; gamer ->mouve.y = gamer ->mouve.y - 1.5;
-        rect = new_condition(rect, gamer);
-        sfSprite_setPosition(gamer ->player,gamer ->mouve);
-    } return rect;
-}*/

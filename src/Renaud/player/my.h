@@ -53,6 +53,14 @@ typedef struct player {
     float seconds ;
 } player;
 
+typedef struct my_text {
+    sfText *text;
+    sfColor color;
+    sfColor active_color;
+    sfColor survol_color;
+    sfBool button_status;
+    sfBool actif;
+} my_text;
 
 int my_putstr(char const *src);
 void my_putchar(char c);
@@ -72,4 +80,5 @@ void conditon_of_reapparition(new_struct *hunter);
 int my_putstr(char const *str);
 
 sfIntRect player_func(sfIntRect rect, player *gamer);
+my_text **def_texts(my_text **tab_of_text);
 #endif
