@@ -20,6 +20,7 @@
 
 typedef struct menu_s{
 const char **images;
+const char **flames;
 }menu_t;
 
 void display_menu(sfRenderWindow *window, int image_index);
