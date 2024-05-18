@@ -17,8 +17,13 @@
 #include <stdio.h>
 
 /*____Protype__of___Ramdon_____*/
-void display_menu(sfRenderWindow *window);
-void menu_event(sfRenderWindow *window, sfEvent event);
+
+typedef struct menu_s{
+const char **images;
+}menu_t;
+
+void display_menu(sfRenderWindow *window, int image_index);
+int menu_event(sfRenderWindow *window, sfEvent event, int *image_index);
 void menu(sfRenderWindow* window);
 
 /*____Protype__of___Kevin_____*/

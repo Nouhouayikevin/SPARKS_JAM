@@ -6,12 +6,18 @@
 */
 #include "../../include/jam.h"
 
-void display_menu(sfRenderWindow *window)
+void display_menu(sfRenderWindow *window, int image_index)
 {
     sfTexture *texture;
     sfSprite *sprite;
+    menu_t *ptr = malloc(sizeof(menu_t));
+    ptr->images = malloc(sizeof(char *) * 4);
 
-    texture = sfTexture_createFromFile("./pictures/image1.png", NULL);
+    ptr->images[0] = "./pictures/image1.png";
+    ptr->images[1] = "./pictures/image2.png";
+    ptr->images[2] = "./pictures/image3.png";
+    ptr->images[3] = NULL;
+    texture = sfTexture_createFromFile(ptr->images[image_index], NULL);
     if (!texture) {
         printf("The texture failed to load\n");
         return;
@@ -23,24 +29,40 @@ void display_menu(sfRenderWindow *window)
     sfTexture_destroy(texture);
 }
 
-void menu_event(sfRenderWindow *window, sfEvent event)
+int menu_event(sfRenderWindow *window, sfEvent event, int *image_index)
 {
     sfVector2i mouse = sfMouse_getPosition((const sfWindow*)window);
 
     if (event.type == sfEvtClosed)
         sfRenderWindow_close(window);
+    if (event.type == sfEvtMouseButtonPressed) {
+        *image_index = (*image_index + 1) % 3;
+        return 1;
+    }
+    return 0;
 }
 
 void menu(sfRenderWindow* window)
 {
     sfEvent event;
+    int image_index = 0;
+    int x = 0;
+    int i = 0;
 
     while (sfRenderWindow_isOpen(window)) {
         while (sfRenderWindow_pollEvent(window, &event)) {
-            menu_event(window, event);
+            x = menu_event(window, event, &image_index);
         }
         sfRenderWindow_clear(window, sfBlack);
-        display_menu(window);
+        if (x == 1 || i == 1) {
+        display_menu(window, image_index);
         sfRenderWindow_display(window);
+        i = 1;
+        } else if (i == 0 && x == 0) {
+        display_menu(window, image_index);
+        sfRenderWindow_display(window);
+        sfSleep(sfMilliseconds(1500));
+        image_index = (image_index + 1) % 3;
+        }
     }
 }
