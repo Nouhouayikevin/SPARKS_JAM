@@ -5,7 +5,8 @@
 ** menu
 */
 #include "../../include/jam.h"
-
+int x;
+int i;
 void display_menu(sfRenderWindow *window, int image_index)
 {
     sfTexture *texture;
@@ -36,7 +37,8 @@ int menu_event(sfRenderWindow *window, sfEvent event, int *image_index)
     if (event.type == sfEvtClosed)
         sfRenderWindow_close(window);
     if (event.type == sfEvtMouseButtonPressed) {
-        *image_index = (*image_index + 1) % 3;
+	x = 1;
+	i = 1;
         return 1;
     }
     return 0;
@@ -46,23 +48,25 @@ void menu(sfRenderWindow* window)
 {
     sfEvent event;
     int image_index = 0;
-    int x = 0;
-    int i = 0;
+    x = 0;
+    i = 0;
 
     while (sfRenderWindow_isOpen(window)) {
         while (sfRenderWindow_pollEvent(window, &event)) {
-            x = menu_event(window, event, &image_index);
+            menu_event(window, event, &image_index);
         }
         sfRenderWindow_clear(window, sfBlack);
-        if (x == 1 || i == 1) {
-        display_menu(window, image_index);
-        sfRenderWindow_display(window);
-        i = 1;
-        } else if (i == 0 && x == 0) {
-        display_menu(window, image_index);
-        sfRenderWindow_display(window);
-        sfSleep(sfMilliseconds(1500));
-        image_index = (image_index + 1) % 3;
-        }
+	if (x == 0) {
+            display_menu(window, image_index);
+            sfRenderWindow_display(window);
+            sfSleep(sfMilliseconds(1500));
+            image_index = (image_index + 1) % 3;
+	}
+        else if (x == 1) {
+	    display_menu(window, image_index);
+	    sfRenderWindow_display(window);
+	    image_index = (i == 1) ? (image_index + 1) % 3: image_index;
+	}
+	i = 0;
     }
 }
