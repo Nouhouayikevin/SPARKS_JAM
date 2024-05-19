@@ -34,8 +34,6 @@ int z = 0;
 
 #include "../../include/jam.h"
 
-int x;
-int i;
 
 /*void init_rect_and_mode(data *data)
 {
@@ -124,7 +122,7 @@ sfSound *sound()
     sfSound *sound;
     sfSoundBuffer *musique;
     sound = sfSound_create();
-    musique = sfSoundBuffer_createFromFile("musique/song.ogg");
+    musique = sfSoundBuffer_createFromFile("musique/song2.ogg");
     sfSound_setBuffer(sound, musique);
     sfSound_play(sound);
     return sound;
@@ -183,8 +181,6 @@ int menu_event(sfRenderWindow *window, sfEvent event, int *image_index)
     if (event.type == sfEvtClosed)
         sfRenderWindow_close(window);
     if (event.type == sfEvtMouseButtonPressed) {
-        x = 1;
-        i = 1;
         return 1;
     }
     return 0;
@@ -223,8 +219,6 @@ void menu(sfRenderWindow* window)
     sfSprite_setTexture(crane, texture1, sfTrue);
     texture1 = sfTexture_createFromFile("images/you_lose.jpeg", NULL);
     sfSprite_setTexture(lose, texture1, sfTrue);
-    x = 0;
-    i = 0;
     sfSound *song = sound();
     while (sfRenderWindow_isOpen(window)) {
         while (sfRenderWindow_pollEvent(window, &event)) {
