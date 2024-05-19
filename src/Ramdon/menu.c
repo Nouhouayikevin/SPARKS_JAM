@@ -16,8 +16,20 @@ menu_t *ptr;
 void init_menu()
 {
     ptr = malloc(sizeof(menu_t));
+    if (ptr == NULL) {
+    printf("Allocation error.\n");
+    return;
+    }
     ptr->images = malloc(sizeof(char *) * 4);
+    if (ptr->images == NULL) {
+        printf("Allocation error.\n");
+        return;
+    }
     ptr->flames = malloc(sizeof(char *) * 19);
+    if (ptr->flames == NULL) {
+        printf("Allocation error.\n");
+        return;
+    }
     font = sfFont_createFromFile("./font/font.ttf");
 
     ptr->images[0] = "./pictures/image1.png";
@@ -48,10 +60,18 @@ void init_menu()
 
 void free_menu()
 {
-    free(ptr->images);
-    free(ptr->flames);
-    free(ptr);
-    sfFont_destroy(font);
+    if (ptr != NULL) {
+        if (ptr->images != NULL) {
+            free(ptr->images);
+        }
+        if (ptr->flames != NULL) {
+            free(ptr->flames);
+        }
+        free(ptr);
+    }
+    if (font != NULL) {
+        sfFont_destroy(font);
+    }
 }
 
 void draw_static_text(sfRenderWindow *window, char *str, sfVector2f position)
@@ -230,8 +250,7 @@ void menu(sfRenderWindow* window)
             sfRenderWindow_display(window);
             sfSleep(sfMilliseconds(1300));
             image_index = (image_index + 1) % 3;
-	}
-        else if (x == 1) {
+	} else if (x == 1) {
 	    display_menu(window, image_index);
 	    sfRenderWindow_display(window);
 	    image_index = (i == 1) ? (image_index + 1) % 3: image_index;
@@ -244,6 +263,10 @@ void menu(sfRenderWindow* window)
 void launch_menu(sfRenderWindow *window)
 {
     init_menu();
+    if (ptr == NULL || ptr->images == NULL || ptr->flames == NULL) {
+        printf("The menu failed to load.\n");
+        return;
+    }
     menu(window);
     free_menu();
 }
