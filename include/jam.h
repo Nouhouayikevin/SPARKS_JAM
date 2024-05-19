@@ -23,6 +23,14 @@ const char **images;
 const char **flames;
 }menu_t;
 
+typedef struct combo {
+    sfSprite *sprite;
+    sfIntRect rect;
+    sfTexture *texture;
+    sfClock *clock;
+    const char *song;
+} combo_t;
+
 //void display_menu(sfRenderWindow *window, int image_index);
 void display_menu(sfRenderWindow *window, int image_index, sfTexture *texture, sfSprite *sprite);
 int menu_event(sfRenderWindow *window, sfEvent event, int *image_index);
