@@ -49,7 +49,15 @@ void launch_menu(sfRenderWindow *window);
 
 /*____Protype__of___Joseph_____*/
 
+typedef struct {
+    sfIntRect rect;
+    sfSprite *sprite;
+    sfTexture *texture;
+} flame_t;
 
+flame_t initialize_flame_struct(void);
+flame_t animate_flame(sfRenderWindow *window, flame_t f,
+    sfVector2f pos);
 
 /*____Protype__of___Renaud_____*/
 
