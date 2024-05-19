@@ -56,7 +56,7 @@ typedef struct {
 } flame_t;
 
 flame_t initialize_flame_struct(void);
-flame_t animate_flame(sfRenderWindow *window, flame_t f,
+flame_t pixels_flame(sfRenderWindow *window, flame_t f,
     sfVector2f pos);
 
 /*____Protype__of___Renaud_____*/

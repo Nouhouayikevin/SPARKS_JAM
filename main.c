@@ -13,6 +13,7 @@ int main(void)
     sfRenderWindow *window;
     sfEvent event;
 
+
     window = sfRenderWindow_create(mode, "SPARKS", sfResize | sfClose, NULL);
     launch_menu(window);
 }

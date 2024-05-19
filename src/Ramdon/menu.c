@@ -12,6 +12,9 @@ int stop_animation = 0;
 sfText *text_to_draw = NULL;
 sfFont *font;
 menu_t *ptr;
+flame_t f1;
+flame_t f2;
+flame_t f3;
 
 void init_menu()
 {
@@ -164,7 +167,6 @@ void flame_animation(sfRenderWindow **window, int flame_index)
 
 void display_menu(sfRenderWindow *window, int image_index, sfTexture *texture, sfSprite *sprite)
 {
-
     texture = sfTexture_createFromFile(ptr->images[image_index], NULL);
     if (!texture) {
         printf("The texture failed to load\n");
@@ -177,13 +179,22 @@ void display_menu(sfRenderWindow *window, int image_index, sfTexture *texture, s
         sfVector2f scale = {1.005, 1.002};
         sfSprite_setScale(sprite, scale);
     }
-    
+    sfRenderWindow_drawSprite(window, sprite, NULL);
     if (image_index == 2) {
         sfVector2f scale = {1.250, 1.150};
+        sfVector2f scale_flammes = {1.9, 1.9};
         sfSprite_setScale(sprite, scale);
+        sfSprite_setScale(f1.sprite, scale_flammes);
+        sfSprite_setScale(f2.sprite, scale_flammes);
+        sfSprite_setScale(f3.sprite, scale_flammes);
+        sfRenderWindow_drawSprite(window, sprite, NULL);
+        f1 = pixels_flame(window, f1, (sfVector2f){527, 412});
+        f2 = pixels_flame(window, f2, (sfVector2f){1215, 418});
+        f3 = pixels_flame(window, f3, (sfVector2f){282, 587});
+        draw_static_text(window, "START", (sfVector2f){932, 531});
+        draw_static_text(window, "SETTING", (sfVector2f){932, 605});
+        draw_static_text(window, "QUIT", (sfVector2f){932, 680});
     }
-
-    sfRenderWindow_drawSprite(window, sprite, NULL);
 
     if (image_index == 0) {
         if (text_to_draw == NULL) {
@@ -206,11 +217,6 @@ void display_menu(sfRenderWindow *window, int image_index, sfTexture *texture, s
                 break;
             }
         }
-    }
-    if (image_index == 2) {
-        draw_static_text(window, "START", (sfVector2f){932, 531});
-        draw_static_text(window, "SETTING", (sfVector2f){932, 605});
-        draw_static_text(window, "QUIT", (sfVector2f){932, 680});
     }
 }
 
@@ -238,6 +244,9 @@ void menu(sfRenderWindow* window)
     x = 0;
     i = 0;
 
+    f1 = initialize_flame_struct();
+    f2 = initialize_flame_struct();
+    f3 = initialize_flame_struct();
     sfTexture *texture;
     sfSprite *sprite;
 

@@ -13,6 +13,7 @@ SRC	=	main.c	\
 		src/Tobi/rectangle.c	\
 		src/Tobi/move_player.c	\
 		src/Tobi/collide.c	\
+		src/Joseph/animate_flame.c	\
 
 OBJ	=	$(SRC:.c=.o)
 

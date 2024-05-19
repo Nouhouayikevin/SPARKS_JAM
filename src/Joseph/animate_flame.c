@@ -17,14 +17,14 @@ flame_t initialize_flame_struct(void)
     f.rect.width = 96;
     f.rect.height = 96;
     f.sprite = sfSprite_create();
-    f.texture = sfTexture_createFromFile("fire.png", NULL);
+    f.texture = sfTexture_createFromFile("./pictures/fire.png", NULL);
     sfSprite_setTexture(f.sprite, f.texture, sfFalse);
     return f;
 }
 
 // Use this function before displaying the window (Atôtô gbé)
 
-flame_t animate_flame(sfRenderWindow *window, flame_t f, sfVector2f pos)
+flame_t pixels_flame(sfRenderWindow *window, flame_t f, sfVector2f pos)
 {
     if (f.rect.top < 450) {
         if (f.rect.left < 350) {

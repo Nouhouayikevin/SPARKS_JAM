@@ -12,7 +12,8 @@ NAME =	dedal
 SRC = 	src/opening_a_window.c	\
 		src/rectangle.c	\
 		src/move_player.c	\
-		src/collide.c
+		src/collide.c	\
+		
 OBJ =	$(SRC:.c=.o)
 
 all: $(OBJ)
