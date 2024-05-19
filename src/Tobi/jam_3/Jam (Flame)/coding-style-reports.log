@@ -1,0 +1,7 @@
+./include/my.h:22: MINOR:C-V1
+./include/my.h:24: INFO:C-A3
+./move:1: MAJOR:C-O1
+./move_player.c:51: MAJOR:C-F4
+./move_player.c:58: MAJOR:C-F3
+./move_player.c:79: MAJOR:C-F3
+./move_player.c:94: INFO:C-A3
