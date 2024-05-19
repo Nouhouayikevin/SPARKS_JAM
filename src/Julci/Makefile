@@ -5,15 +5,11 @@
 ## Makefile
 ##
 
-SRC	=	src/functions.c	\
-		src/init.c	\
-		src/hunter.c	\
-		src/menu.c	\
-		src/main.c
+SRC	=	victory.c	\
 
 OBJ	=	$(SRC:.c=.o)
 
-NAME	=	my_hunter
+NAME	=	julci
 
 UNIT_TEST = unit_test
 
