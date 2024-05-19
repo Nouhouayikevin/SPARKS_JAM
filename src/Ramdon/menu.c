@@ -33,7 +33,7 @@ void init_menu()
     font = sfFont_createFromFile("./font/font.ttf");
 
     ptr->images[0] = "./pictures/image1.png";
-    ptr->images[1] = "./pictures/image2.jpeg";
+    ptr->images[1] = "./pictures/image2.png";
     ptr->images[2] = "./pictures/image3.jpg";
     ptr->images[3] = NULL;
 
@@ -98,6 +98,7 @@ void draw_static_text(sfRenderWindow *window, char *str, sfVector2f position)
             }
             if (strcmp(str, "QUIT") == 0) {
                 sfRenderWindow_close(window);
+                exit(0);
             }
         }
     } else {
@@ -172,7 +173,7 @@ void display_menu(sfRenderWindow *window, int image_index, sfTexture *texture, s
     sfSprite_setTexture(sprite, texture, sfTrue);
 
     if (image_index == 1) {
-        sfVector2f scale = {1.199, 1.115};
+        sfVector2f scale = {1.005, 1.002};
         sfSprite_setScale(sprite, scale);
     }
     
@@ -216,8 +217,10 @@ int menu_event(sfRenderWindow *window, sfEvent event, int *image_index)
 {
     sfVector2i mouse = sfMouse_getPosition((const sfWindow*)window);
 
-    if (event.type == sfEvtClosed)
+    if (event.type == sfEvtClosed) {
         sfRenderWindow_close(window);
+        exit(0);
+    }
     if (event.type == sfEvtMouseButtonPressed) {
 	x = 1;
 	i = 1;
