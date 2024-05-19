@@ -21,7 +21,7 @@ void init_menu()
     font = sfFont_createFromFile("./font/font.ttf");
 
     ptr->images[0] = "./pictures/image1.png";
-    ptr->images[1] = "./pictures/image2.jpg";
+    ptr->images[1] = "./pictures/image2.jpeg";
     ptr->images[2] = "./pictures/image3.jpg";
     ptr->images[3] = NULL;
 
@@ -48,8 +48,8 @@ void init_menu()
 
 void free_menu()
 {
-    //free(ptr->images);
-    //free(ptr->flames);
+    free(ptr->images);
+    free(ptr->flames);
     free(ptr);
     sfFont_destroy(font);
 }
@@ -156,7 +156,7 @@ void display_menu(sfRenderWindow *window, int image_index)
     sfSprite_setTexture(sprite, texture, sfTrue);
 
     if (image_index == 1) {
-        sfVector2f scale = {1.27, 1.050};
+        sfVector2f scale = {1.199, 1.115};
         sfSprite_setScale(sprite, scale);
     }
     
