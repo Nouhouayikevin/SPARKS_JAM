@@ -34,7 +34,7 @@ void init_menu()
 
     ptr->images[0] = "./pictures/image1.png";
     ptr->images[1] = "./pictures/image2.png";
-    ptr->images[2] = "./pictures/image3.jpg";
+    ptr->images[2] = "./pictures/image3.png";
     ptr->images[3] = NULL;
 
     ptr->flames[0] = "./pictures/flame1.png";
@@ -90,7 +90,7 @@ void draw_static_text(sfRenderWindow *window, char *str, sfVector2f position)
     if (mouse_position.x >= text_rect.left && mouse_position.x <= text_rect.left + text_rect.width &&
         mouse_position.y >= text_rect.top && mouse_position.y <= text_rect.top + text_rect.height) {
         sfText_setCharacterSize(quit, 30);
-        sfText_setColor(quit, sfWhite);
+        sfText_setColor(quit, sfGreen);
         if (sfMouse_isButtonPressed(sfMouseLeft)) {
             if (strcmp(str, "START") == 0) {
                 launch_labyrinth(window);
@@ -104,7 +104,7 @@ void draw_static_text(sfRenderWindow *window, char *str, sfVector2f position)
         }
     } else {
         sfText_setCharacterSize(quit, 25);
-        sfText_setColor(quit, sfBlack);
+        sfText_setColor(quit, sfWhite);
     }
 
     sfRenderWindow_drawText(window, quit, NULL);
@@ -179,7 +179,7 @@ void display_menu(sfRenderWindow *window, int image_index, sfTexture *texture, s
     }
     
     if (image_index == 2) {
-        sfVector2f scale = {0.999, 0.94};
+        sfVector2f scale = {1.250, 1.150};
         sfSprite_setScale(sprite, scale);
     }
 
@@ -208,9 +208,9 @@ void display_menu(sfRenderWindow *window, int image_index, sfTexture *texture, s
         }
     }
     if (image_index == 2) {
-        draw_static_text(window, "START", (sfVector2f){600, 920});
-        draw_static_text(window, "SETTING", (sfVector2f){880, 920});
-        draw_static_text(window, "QUIT", (sfVector2f){1200, 920});
+        draw_static_text(window, "START", (sfVector2f){932, 531});
+        draw_static_text(window, "SETTING", (sfVector2f){932, 605});
+        draw_static_text(window, "QUIT", (sfVector2f){932, 680});
     }
 }
 

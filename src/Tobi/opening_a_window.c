@@ -61,4 +61,6 @@ int launch_labyrinth(sfRenderWindow *window)
     }
     for (i = 0; rectangle[i].rect != NULL; i++)
         sfRectangleShape_destroy(rectangle[i].rect);
+        sfSprite_destroy(key.sprite);
+        destroy_player_val(p);
 }
