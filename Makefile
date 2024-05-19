@@ -9,6 +9,10 @@ NAME	=	sparks
 
 SRC	=	main.c	\
 		src/Ramdon/menu.c	\
+		src/Tobi/opening_a_window.c	\
+		src/Tobi/rectangle.c	\
+		src/Tobi/move_player.c	\
+		src/Tobi/collide.c	\
 
 OBJ	=	$(SRC:.c=.o)
 

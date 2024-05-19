@@ -4,12 +4,9 @@
 ** File description:
 ** THis is my rectangle
 */
-#include <SFML/Graphics.h>
-#include <SFML/Window.h>
-#include <SFML/System.h>
-#include <SFML/Audio.h>
-#include "../my.h"
-#include <stdlib.h>
+
+#include "../../include/jam.h"
+
 rect_t *my_rectangle(rect_t *rectangle)
 {
 

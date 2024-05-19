@@ -5,7 +5,7 @@
 ** move_player_t.c
 */
 
-#include "../my.h"
+#include "../../include/jam.h"
 
 move_player_t init_move_player_t_struct(move_player_t player)
 {
@@ -19,7 +19,7 @@ move_player_t init_move_player_t_struct(move_player_t player)
     sfRectangleShape_setScale(player.outline, player.scale);
     sfRectangleShape_setOutlineColor(player.outline, sfTransparent);
     sfRectangleShape_setOutlineThickness(player.outline, 2.0);
-    player.texture = sfTexture_createFromFile("male.png", NULL);
+    player.texture = sfTexture_createFromFile("./src/Tobi/male.png", NULL);
     sfSprite_setTexture(player.sprite, player.texture, sfFalse);
     sfRectangleShape_setFillColor(player.outline, sfTransparent);
     sfRectangleShape_setSize(player.outline, player.outline_size);

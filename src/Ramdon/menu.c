@@ -93,6 +93,7 @@ void draw_static_text(sfRenderWindow *window, char *str, sfVector2f position)
         sfText_setColor(quit, sfWhite);
         if (sfMouse_isButtonPressed(sfMouseLeft)) {
             if (strcmp(str, "START") == 0) {
+                launch_labyrinth(window);
             }
             if (strcmp(str, "SETTING") == 0) {
             }

@@ -4,12 +4,7 @@
 ** File description:
 ** Like his name is for opening window
 */
-#include <SFML/Graphics.h>
 #include "my.h"
-#include <stdio.h>
-#include <SFML/Window.h>
-#include <SFML/Audio.h>
-#include <SFML/System.h>
 
 void destroy_resource(affiche key)
 {

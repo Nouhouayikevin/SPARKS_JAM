@@ -4,13 +4,7 @@
 ** File description:
 ** Day13
 */
-
-#include <SFML/Graphics.h>
-#include "../my.h"
-#include <stdio.h>
-#include <SFML/Window.h>
-#include <SFML/Audio.h>
-#include <SFML/System.h>
+#include "../../include/jam.h"
 
 move_player_t event_handler(sfEvent e, sfRenderWindow *w, sfVector2f sc, move_player_t p, rect_t *rectangle)
 {
@@ -29,7 +23,7 @@ affiche my_texture(void)
     affiche key;
     sfVector2f scale = {1, 0.55};
 
-    key.texture = sfTexture_createFromFile("./lab.jpg", NULL);
+    key.texture = sfTexture_createFromFile("./src/Tobi/lab.jpg", NULL);
     key.sprite = sfSprite_create();
     sfSprite_setTexture(key.sprite, key.texture, sfTrue);
     sfSprite_setScale(key.sprite, scale);
@@ -41,7 +35,7 @@ void draw_sprite(affiche key)
     sfRenderWindow_drawSprite(key.window, key.sprite, NULL);
 }
 
-int main(int ac, char **av)
+int launch_labyrinth(sfRenderWindow *window)
 {
     affiche key = my_texture();
     sfVector2f scale = {0.4, 0.35};
@@ -51,7 +45,7 @@ int main(int ac, char **av)
     move_player_t p = init_move_player_t_struct(p);
     int i = 0;
 
-    key.window = sfRenderWindow_create(m, "MH", sfDefaultStyle, NULL);
+    key.window = window;
     sfRenderWindow_setFramerateLimit(key.window, 700);
     while (sfRenderWindow_isOpen(key.window)){
         p = event_handler(key.event, key.window, scale, p, rectangle);
@@ -67,7 +61,4 @@ int main(int ac, char **av)
     }
     for (i = 0; rectangle[i].rect != NULL; i++)
         sfRectangleShape_destroy(rectangle[i].rect);
-    sfRenderWindow_destroy(key.window);
-    sfSprite_destroy(key.sprite);
-    destroy_player_val(p);
 }
