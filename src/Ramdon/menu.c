@@ -158,14 +158,10 @@ void flame_animation(sfRenderWindow **window, int flame_index)
     sfSprite_setTexture(sprite, texture, sfTrue);
     sfSprite_setPosition(sprite, position);
     sfRenderWindow_drawSprite(*window, sprite, NULL);
-    sfSprite_destroy(sprite);
-    sfTexture_destroy(texture);
 }
 
-void display_menu(sfRenderWindow *window, int image_index)
+void display_menu(sfRenderWindow *window, int image_index, sfTexture *texture, sfSprite *sprite)
 {
-    sfTexture *texture;
-    sfSprite *sprite;
 
     texture = sfTexture_createFromFile(ptr->images[image_index], NULL);
     if (!texture) {
@@ -193,9 +189,9 @@ void display_menu(sfRenderWindow *window, int image_index)
         draw_text_char_by_char(window, "BEHANZIN Joseph", (sfVector2f){500, 400});
         draw_text_char_by_char(window, "OKE Julcinia", (sfVector2f){500, 500});
         draw_text_char_by_char(window, "AGONGBONON Tobi", (sfVector2f){500, 600});
-        draw_text_char_by_char(window, "OGOUYOMI Ramdon", (sfVector2f){990, 400});
-        draw_text_char_by_char(window, "NOUHOUAYI Kevin", (sfVector2f){1010, 500});
-        draw_text_char_by_char(window, "VIGNON Renaud-Marie", (sfVector2f){990, 600});
+        draw_text_char_by_char(window, "OGOUYOMI Ramdon", (sfVector2f){1050, 400});
+        draw_text_char_by_char(window, "NOUHOUAYI Kevin", (sfVector2f){1050, 500});
+        draw_text_char_by_char(window, "VIGNON Renaud-Marie", (sfVector2f){1050, 600});
         } else {
             sfRenderWindow_drawText(window, text_to_draw, NULL);
         }
@@ -214,8 +210,6 @@ void display_menu(sfRenderWindow *window, int image_index)
         draw_static_text(window, "SETTING", (sfVector2f){880, 920});
         draw_static_text(window, "QUIT", (sfVector2f){1200, 920});
     }
-    sfSprite_destroy(sprite);
-    sfTexture_destroy(texture);
 }
 
 int menu_event(sfRenderWindow *window, sfEvent event, int *image_index)
@@ -240,25 +234,28 @@ void menu(sfRenderWindow* window)
     x = 0;
     i = 0;
 
+    sfTexture *texture;
+    sfSprite *sprite;
+
     while (sfRenderWindow_isOpen(window)) {
         while (sfRenderWindow_pollEvent(window, &event)) {
             menu_event(window, event, &image_index);
         }
         sfRenderWindow_clear(window, sfBlack);
-	if (x == 0) {
-            display_menu(window, image_index);
+        if (x == 0) {
+            display_menu(window, image_index, texture, sprite);
             sfRenderWindow_display(window);
             sfSleep(sfMilliseconds(1300));
             image_index = (image_index + 1) % 3;
-	} else if (x == 1) {
-	    display_menu(window, image_index);
-	    sfRenderWindow_display(window);
-	    image_index = (i == 1) ? (image_index + 1) % 3: image_index;
-	}
-	i = 0;
+        } else if (x == 1) {
+            display_menu(window, image_index, texture, sprite);
+            sfRenderWindow_display(window);
+            image_index = (i == 1) ? (image_index + 1) % 3: image_index;
+        }
+        i = 0;
     }
-
 }
+
 
 void launch_menu(sfRenderWindow *window)
 {

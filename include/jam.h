@@ -23,7 +23,8 @@ const char **images;
 const char **flames;
 }menu_t;
 
-void display_menu(sfRenderWindow *window, int image_index);
+//void display_menu(sfRenderWindow *window, int image_index);
+void display_menu(sfRenderWindow *window, int image_index, sfTexture *texture, sfSprite *sprite);
 int menu_event(sfRenderWindow *window, sfEvent event, int *image_index);
 void menu(sfRenderWindow* window);
 void init_menu();
