@@ -71,6 +71,15 @@ void draw_static_text(sfRenderWindow *window, char *str, sfVector2f position)
         mouse_position.y >= text_rect.top && mouse_position.y <= text_rect.top + text_rect.height) {
         sfText_setCharacterSize(quit, 30);
         sfText_setColor(quit, sfWhite);
+        if (sfMouse_isButtonPressed(sfMouseLeft)) {
+            if (strcmp(str, "START") == 0) {
+            }
+            if (strcmp(str, "SETTING") == 0) {
+            }
+            if (strcmp(str, "QUIT") == 0) {
+                sfRenderWindow_close(window);
+            }
+        }
     } else {
         sfText_setCharacterSize(quit, 25);
         sfText_setColor(quit, sfBlack);
@@ -105,6 +114,8 @@ void draw_text_char_by_char(sfRenderWindow *window, char *text, sfVector2f posit
         if (text_to_draw != NULL) {
             sfText_destroy(text_to_draw);
         }
+        if (stop_animation == 1)
+            break;
         draw_text(window, temp_text, position);
         sfRenderWindow_display(window);
         sfSleep(sfMilliseconds(100));
