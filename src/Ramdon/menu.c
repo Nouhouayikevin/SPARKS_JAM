@@ -5,51 +5,25 @@
 ** menu
 */
 #include "../../include/jam.h"
+
 int x;
 int i;
 int stop_animation = 0;
-sfText *text_to_draw;
+sfText *text_to_draw = NULL;
+sfFont *font;
+menu_t *ptr;
 
-void draw_text(sfRenderWindow *window, char *text, sfVector2f position)
+void init_menu()
 {
-    sfFont *font;
-    sfText *sf_text;
-
-    font = sfFont_createFromFile("./font/font.ttf");
-    sf_text = sfText_create();
-    sfText_setString(sf_text, text);
-    sfText_setFont(sf_text, font);
-    sfText_setCharacterSize(sf_text, 35);
-    sfText_setPosition(sf_text, position);
-
-    sfRenderWindow_drawText(window, sf_text, NULL);
-}
-
-void draw_text_char_by_char(sfRenderWindow *window, char *text, sfVector2f position)
-{
-    int len = strlen(text);
-    char *temp_text = malloc(len + 1);
-
-    for (int i = 0; i < len; i++) {
-        temp_text[i] = text[i];
-        temp_text[i + 1] = '\0';
-        if (text_to_draw != NULL) {
-            sfText_destroy(text_to_draw);
-        }
-        draw_text(window, temp_text, position);
-        sfRenderWindow_display(window);
-        sfSleep(sfMilliseconds(100));
-    }
-    free(temp_text);
-}
-
-void flame_animation(sfRenderWindow **window, int flame_index)
-{
-    menu_t *ptr = malloc(sizeof(menu_t));
-    sfTexture *texture;
-    sfSprite *sprite;
+    ptr = malloc(sizeof(menu_t));
+    ptr->images = malloc(sizeof(char *) * 4);
     ptr->flames = malloc(sizeof(char *) * 19);
-    sfVector2f position = {890, 380};
+    font = sfFont_createFromFile("./font/font.ttf");
+
+    ptr->images[0] = "./pictures/image1.png";
+    ptr->images[1] = "./pictures/image2.jpg";
+    ptr->images[2] = "./pictures/image3.jpg";
+    ptr->images[3] = NULL;
 
     ptr->flames[0] = "./pictures/flame1.png";
     ptr->flames[1] = "./pictures/flame2.png";
@@ -70,6 +44,79 @@ void flame_animation(sfRenderWindow **window, int flame_index)
     ptr->flames[16] = "./pictures/flame17.png";
     ptr->flames[17] = "./pictures/flame18.png";
     ptr->flames[18] = NULL;
+}
+
+void free_menu()
+{
+    //free(ptr->images);
+    //free(ptr->flames);
+    free(ptr);
+    sfFont_destroy(font);
+}
+
+void draw_static_text(sfRenderWindow *window, char *str, sfVector2f position)
+{
+    sfText *quit;
+
+    quit = sfText_create();
+    sfText_setString(quit, str);
+    sfText_setFont(quit, font);
+    sfText_setCharacterSize(quit, 25);
+    sfText_setPosition(quit, position);
+
+    sfFloatRect text_rect = sfText_getGlobalBounds(quit);
+
+    sfVector2i mouse_position = sfMouse_getPositionRenderWindow(window);
+    if (mouse_position.x >= text_rect.left && mouse_position.x <= text_rect.left + text_rect.width &&
+        mouse_position.y >= text_rect.top && mouse_position.y <= text_rect.top + text_rect.height) {
+        sfText_setCharacterSize(quit, 30);
+        sfText_setColor(quit, sfWhite);
+    } else {
+        sfText_setCharacterSize(quit, 25);
+        sfText_setColor(quit, sfBlack);
+    }
+
+    sfRenderWindow_drawText(window, quit, NULL);
+}
+
+void draw_text(sfRenderWindow *window, char *text, sfVector2f position)
+{
+    sfText *sf_text;
+
+    sf_text = sfText_create();
+    sfText_setString(sf_text, text);
+    sfText_setFont(sf_text, font);
+    sfText_setCharacterSize(sf_text, 35);
+    sfText_setPosition(sf_text, position);
+
+    sfRenderWindow_drawText(window, sf_text, NULL);
+}
+
+void draw_text_char_by_char(sfRenderWindow *window, char *text, sfVector2f position)
+{
+    int len = strlen(text);
+    char *temp_text = malloc(len + 1);
+
+    for (int i = 0; i < len; i++) {
+        temp_text[i] = text[i];
+        temp_text[i + 1] = '\0';
+        if (text[i] == 'E' && text[i + 1] == '\0')
+            break;
+        if (text_to_draw != NULL) {
+            sfText_destroy(text_to_draw);
+        }
+        draw_text(window, temp_text, position);
+        sfRenderWindow_display(window);
+        sfSleep(sfMilliseconds(100));
+    }
+    free(temp_text);
+}
+
+void flame_animation(sfRenderWindow **window, int flame_index)
+{
+    sfTexture *texture;
+    sfSprite *sprite;
+    sfVector2f position = {890, 380};
 
     texture = sfTexture_createFromFile(ptr->flames[flame_index], NULL);
     if (!texture) {
@@ -82,21 +129,12 @@ void flame_animation(sfRenderWindow **window, int flame_index)
     sfRenderWindow_drawSprite(*window, sprite, NULL);
     sfSprite_destroy(sprite);
     sfTexture_destroy(texture);
-    free(ptr->flames);
-    free(ptr);
 }
 
 void display_menu(sfRenderWindow *window, int image_index)
 {
     sfTexture *texture;
     sfSprite *sprite;
-    menu_t *ptr = malloc(sizeof(menu_t));
-    ptr->images = malloc(sizeof(char *) * 4);
-
-    ptr->images[0] = "./pictures/image1.png";
-    ptr->images[1] = "./pictures/image2.png";
-    ptr->images[2] = "./pictures/image3.jpg";
-    ptr->images[3] = NULL;
 
     texture = sfTexture_createFromFile(ptr->images[image_index], NULL);
     if (!texture) {
@@ -105,6 +143,11 @@ void display_menu(sfRenderWindow *window, int image_index)
     }
     sprite = sfSprite_create();
     sfSprite_setTexture(sprite, texture, sfTrue);
+
+    if (image_index == 1) {
+        sfVector2f scale = {1.27, 1.050};
+        sfSprite_setScale(sprite, scale);
+    }
     
     if (image_index == 2) {
         sfVector2f scale = {0.999, 0.94};
@@ -112,7 +155,7 @@ void display_menu(sfRenderWindow *window, int image_index)
     }
 
     sfRenderWindow_drawSprite(window, sprite, NULL);
-    
+
     if (image_index == 0) {
         if (text_to_draw == NULL) {
         draw_text_char_by_char(window, "REALISE PAR :", (sfVector2f){730, 90});
@@ -135,10 +178,13 @@ void display_menu(sfRenderWindow *window, int image_index)
             }
         }
     }
+    if (image_index == 2) {
+        draw_static_text(window, "START", (sfVector2f){600, 920});
+        draw_static_text(window, "SETTING", (sfVector2f){880, 920});
+        draw_static_text(window, "QUIT", (sfVector2f){1200, 920});
+    }
     sfSprite_destroy(sprite);
     sfTexture_destroy(texture);
-    free(ptr->images);
-    free(ptr);
 }
 
 int menu_event(sfRenderWindow *window, sfEvent event, int *image_index)
@@ -181,4 +227,12 @@ void menu(sfRenderWindow* window)
 	}
 	i = 0;
     }
+
+}
+
+void launch_menu(sfRenderWindow *window)
+{
+    init_menu();
+    menu(window);
+    free_menu();
 }

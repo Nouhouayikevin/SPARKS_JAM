@@ -14,5 +14,5 @@ int main(void)
     sfEvent event;
 
     window = sfRenderWindow_create(mode, "SPARKS", sfResize | sfClose, NULL);
-    menu(window);
+    launch_menu(window);
 }

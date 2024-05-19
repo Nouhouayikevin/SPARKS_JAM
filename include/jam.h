@@ -26,6 +26,9 @@ const char **flames;
 void display_menu(sfRenderWindow *window, int image_index);
 int menu_event(sfRenderWindow *window, sfEvent event, int *image_index);
 void menu(sfRenderWindow* window);
+void init_menu();
+void free_menu();
+void launch_menu(sfRenderWindow *window);
 
 /*____Protype__of___Kevin_____*/
 
