@@ -35,6 +35,28 @@ affiche my_texture(move_player_t p)
     return key;
 }
 
+void draw_fire_rectangles(sfRenderWindow *window, flame_t flames[], int num_flames)
+{
+    sfRectangleShape *rectangle;
+    sfVector2f position;
+    sfVector2f size = {40, 40};
+
+    for (int i = 0; i < num_flames; i++) {
+        rectangle = sfRectangleShape_create();
+        position = sfSprite_getPosition(flames[i].sprite);
+        position.x += 30;
+        position.y += 56;
+        sfRectangleShape_setPosition(rectangle, position);
+        sfRectangleShape_setSize(rectangle, size);
+        sfRectangleShape_setFillColor(rectangle, sfTransparent);
+        sfRectangleShape_setOutlineColor(rectangle, sfGreen);
+        sfRectangleShape_setOutlineThickness(rectangle, 1.0);
+        sfRenderWindow_drawRectangleShape(window, rectangle, NULL);
+        sfRectangleShape_destroy(rectangle);
+    }
+}
+
+
 void draw_sprite(affiche key)
 {
     sfRenderWindow_drawSprite(key.window, key.sprite, NULL);
@@ -49,6 +71,14 @@ int launch_labyrinth(sfRenderWindow *window, sfSound *song)
     move_player_t p = init_move_player_t_struct(p);
     int i = 0;
     affiche key = my_texture(p);
+    flame_t f1 = initialize_flame_struct();
+    flame_t f2 = initialize_flame_struct();
+    flame_t f3 = initialize_flame_struct();
+    flame_t f4 = initialize_flame_struct();
+    flame_t f5 = initialize_flame_struct();
+    flame_t f6 = initialize_flame_struct();
+
+    flame_t flames[] = {f1, f2, f3, f4, f5, f6};
 
     key.window = window;
     sfRenderWindow_setFramerateLimit(key.window, 700);
@@ -70,11 +100,17 @@ int launch_labyrinth(sfRenderWindow *window, sfSound *song)
         p_rect.left += -400;
         p_rect.top += -400;
         sfVector2f pos = {500 , 0};
+        sfVector2f scale = {0.5, 0.5};
         sfSprite_setPosition(p.sprite, pos);
-        //sfSprite_setTextureRect(p.sprite, p_rect);
         set_and_draw_player(p, key.window);
+        f1 = pixels_flame(key.window, f1, (sfVector2f){200, 787});
+        f2 = pixels_flame(key.window, f2, (sfVector2f){180, 80});
+        f3 = pixels_flame(key.window, f3, (sfVector2f){980, 420});
+        f4 = pixels_flame(key.window, f4, (sfVector2f){970, 715});
+        f5 = pixels_flame(key.window, f5, (sfVector2f){1600, 50});
+        f6 = pixels_flame(key.window, f6, (sfVector2f){1780, 860});
+        draw_fire_rectangles(key.window, flames, 6);
         sfRenderWindow_display(key.window);
-        //sfTexture_s
     }
     for (i = 0; rectangle[i].rect != NULL; i++)
         sfRectangleShape_destroy(rectangle[i].rect);

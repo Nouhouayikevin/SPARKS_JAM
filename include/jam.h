@@ -31,8 +31,7 @@ typedef struct combo {
     const char *song;
 } combo_t;
 
-//void display_menu(sfRenderWindow *window, int image_index);
-void display_menu(sfRenderWindow *window, int image_index/*, sfTexture *texture, sfSprite *sprite*/);
+void display_menu(sfRenderWindow *window, int image_index);
 int menu_event(sfRenderWindow *window, sfEvent event, int *image_index);
 void menu(sfRenderWindow* window);
 void init_menu();

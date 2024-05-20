@@ -24,7 +24,7 @@ sfSound *sound()
     sfSound *sound;
     sfSoundBuffer *musique;
     sound = sfSound_create();
-    musique = sfSoundBuffer_createFromFile("./audio/mountain.ogg");
+    musique = sfSoundBuffer_createFromFile("./audio/camelot.ogg");
     sfSound_setBuffer(sound, musique);
     sfSound_play(sound);
     return sound;
@@ -110,7 +110,7 @@ void draw_static_text(sfRenderWindow *window, char *str, sfVector2f position)
         sfText_setColor(quit, sfGreen);
         if (sfMouse_isButtonPressed(sfMouseLeft)) {
             if (strcmp(str, "START") == 0) {
-                hystory_debut(window, song);
+                //hystory_debut(window, song);
                 launch_labyrinth(window, song);
             }
             if (strcmp(str, "SETTING") == 0) {
