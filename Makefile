@@ -14,6 +14,15 @@ SRC	=	main.c	\
 		src/Tobi/move_player.c	\
 		src/Tobi/collide.c	\
 		src/Joseph/animate_flame.c	\
+		src/Kevin/cache_cache.c	\
+		src/Kevin/courir_chambre.c	\
+		src/Kevin/courir_couloir.c	\
+		src/Kevin/entre_dans_le_laby.c	\
+		src/Kevin/events_of_animation.c	\
+		src/Kevin/poursuite1.c	\
+		src/Kevin/scenario_1.c	\
+		src/Kevin/scenario2.c	\
+		src/Kevin/animation.c	\
 
 OBJ	=	$(SRC:.c=.o)
 

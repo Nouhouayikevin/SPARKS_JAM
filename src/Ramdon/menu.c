@@ -15,6 +15,8 @@ menu_t *ptr;
 flame_t f1;
 flame_t f2;
 flame_t f3;
+sfTexture *texture = NULL;
+sfSprite *sprite = NULL;
 
 void init_menu()
 {
@@ -96,6 +98,7 @@ void draw_static_text(sfRenderWindow *window, char *str, sfVector2f position)
         sfText_setColor(quit, sfGreen);
         if (sfMouse_isButtonPressed(sfMouseLeft)) {
             if (strcmp(str, "START") == 0) {
+                hystory_debut(window);
                 launch_labyrinth(window);
             }
             if (strcmp(str, "SETTING") == 0) {
@@ -165,15 +168,19 @@ void flame_animation(sfRenderWindow **window, int flame_index)
     sfRenderWindow_drawSprite(*window, sprite, NULL);
 }
 
-void display_menu(sfRenderWindow *window, int image_index, sfTexture *texture, sfSprite *sprite)
+void display_menu(sfRenderWindow *window, int image_index/*, sfTexture *texture, sfSprite *sprite*/)
 {
-    texture = sfTexture_createFromFile(ptr->images[image_index], NULL);
-    if (!texture) {
-        printf("The texture failed to load\n");
-        return;
+    if (texture == NULL) {
+        texture = sfTexture_createFromFile(ptr->images[image_index], NULL);
+        sprite = sfSprite_create();
+        sfSprite_setTexture(sprite, texture, sfTrue);
     }
-    sprite = sfSprite_create();
-    sfSprite_setTexture(sprite, texture, sfTrue);
+    else {
+        sfTexture_destroy(texture);
+        texture = sfTexture_createFromFile(ptr->images[image_index], NULL);
+        sfSprite_setTexture(sprite, texture, sfTrue);
+    }
+
 
     if (image_index == 1) {
         sfVector2f scale = {1.005, 1.002};
@@ -247,8 +254,6 @@ void menu(sfRenderWindow* window)
     f1 = initialize_flame_struct();
     f2 = initialize_flame_struct();
     f3 = initialize_flame_struct();
-    sfTexture *texture;
-    sfSprite *sprite;
 
     while (sfRenderWindow_isOpen(window)) {
         while (sfRenderWindow_pollEvent(window, &event)) {
@@ -256,12 +261,12 @@ void menu(sfRenderWindow* window)
         }
         sfRenderWindow_clear(window, sfBlack);
         if (x == 0) {
-            display_menu(window, image_index, texture, sprite);
+            display_menu(window, image_index/*, texture, sprite*/);
             sfRenderWindow_display(window);
             sfSleep(sfMilliseconds(1300));
             image_index = (image_index + 1) % 3;
         } else if (x == 1) {
-            display_menu(window, image_index, texture, sprite);
+            display_menu(window, image_index/*, texture, sprite*/);
             sfRenderWindow_display(window);
             image_index = (i == 1) ? (image_index + 1) % 3: image_index;
         }
