@@ -17,6 +17,18 @@ flame_t f2;
 flame_t f3;
 sfTexture *texture = NULL;
 sfSprite *sprite = NULL;
+int game_sound = 0;
+
+sfSound *sound()
+{
+    sfSound *sound;
+    sfSoundBuffer *musique;
+    sound = sfSound_create();
+    musique = sfSoundBuffer_createFromFile("./audio/mountain.ogg");
+    sfSound_setBuffer(sound, musique);
+    sfSound_play(sound);
+    return sound;
+}
 
 void init_menu()
 {
@@ -153,22 +165,24 @@ void draw_text_char_by_char(sfRenderWindow *window, char *text, sfVector2f posit
 
 void flame_animation(sfRenderWindow **window, int flame_index)
 {
-    sfTexture *texture;
-    sfSprite *sprite;
+    sfTexture *text;
+    sfSprite *sprit;
     sfVector2f position = {890, 380};
 
-    texture = sfTexture_createFromFile(ptr->flames[flame_index], NULL);
-    if (!texture) {
+    text = sfTexture_createFromFile(ptr->flames[flame_index], NULL);
+    if (!text) {
         printf("The texture failed to load\n");
         return;
     }
-    sprite = sfSprite_create();
-    sfSprite_setTexture(sprite, texture, sfTrue);
-    sfSprite_setPosition(sprite, position);
-    sfRenderWindow_drawSprite(*window, sprite, NULL);
+    sprit = sfSprite_create();
+    sfSprite_setTexture(sprit, text, sfTrue);
+    sfSprite_setPosition(sprit, position);
+    sfRenderWindow_drawSprite(*window, sprit, NULL);
+    sfSprite_destroy(sprit);
+    sfTexture_destroy(text);
 }
 
-void display_menu(sfRenderWindow *window, int image_index/*, sfTexture *texture, sfSprite *sprite*/)
+void display_menu(sfRenderWindow *window, int image_index)
 {
     if (texture == NULL) {
         texture = sfTexture_createFromFile(ptr->images[image_index], NULL);
@@ -188,6 +202,7 @@ void display_menu(sfRenderWindow *window, int image_index/*, sfTexture *texture,
     }
     sfRenderWindow_drawSprite(window, sprite, NULL);
     if (image_index == 2) {
+        //sfSound *song = sound();
         sfVector2f scale = {1.250, 1.150};
         sfVector2f scale_flammes = {1.9, 1.9};
         sfSprite_setScale(sprite, scale);
@@ -254,19 +269,18 @@ void menu(sfRenderWindow* window)
     f1 = initialize_flame_struct();
     f2 = initialize_flame_struct();
     f3 = initialize_flame_struct();
-
     while (sfRenderWindow_isOpen(window)) {
         while (sfRenderWindow_pollEvent(window, &event)) {
             menu_event(window, event, &image_index);
         }
         sfRenderWindow_clear(window, sfBlack);
         if (x == 0) {
-            display_menu(window, image_index/*, texture, sprite*/);
+            display_menu(window, image_index);
             sfRenderWindow_display(window);
             sfSleep(sfMilliseconds(1300));
             image_index = (image_index + 1) % 3;
         } else if (x == 1) {
-            display_menu(window, image_index/*, texture, sprite*/);
+            display_menu(window, image_index);
             sfRenderWindow_display(window);
             image_index = (i == 1) ? (image_index + 1) % 3: image_index;
         }
