@@ -109,6 +109,7 @@ int launch_labyrinth(sfRenderWindow *window, sfSound *song)
         f4 = pixels_flame(key.window, f4, (sfVector2f){970, 715});
         f5 = pixels_flame(key.window, f5, (sfVector2f){1600, 50});
         f6 = pixels_flame(key.window, f6, (sfVector2f){1780, 860});
+        sfSleep(sfMilliseconds(50));
         draw_fire_rectangles(key.window, flames, 6);
         sfRenderWindow_display(key.window);
     }
