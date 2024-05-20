@@ -17,7 +17,7 @@ flame_t f2;
 flame_t f3;
 sfTexture *texture = NULL;
 sfSprite *sprite = NULL;
-int game_sound = 0;
+sfSound *song;
 
 sfSound *sound()
 {
@@ -110,8 +110,8 @@ void draw_static_text(sfRenderWindow *window, char *str, sfVector2f position)
         sfText_setColor(quit, sfGreen);
         if (sfMouse_isButtonPressed(sfMouseLeft)) {
             if (strcmp(str, "START") == 0) {
-                hystory_debut(window);
-                launch_labyrinth(window);
+                hystory_debut(window, song);
+                launch_labyrinth(window, song);
             }
             if (strcmp(str, "SETTING") == 0) {
             }
@@ -165,21 +165,21 @@ void draw_text_char_by_char(sfRenderWindow *window, char *text, sfVector2f posit
 
 void flame_animation(sfRenderWindow **window, int flame_index)
 {
-    sfTexture *text;
-    sfSprite *sprit;
+    sfTexture *flame_text = NULL;
+    sfSprite *flame_sprite = NULL;
     sfVector2f position = {890, 380};
 
-    text = sfTexture_createFromFile(ptr->flames[flame_index], NULL);
-    if (!text) {
+    flame_text = sfTexture_createFromFile(ptr->flames[flame_index], NULL);
+    if (!flame_text) {
         printf("The texture failed to load\n");
         return;
     }
-    sprit = sfSprite_create();
-    sfSprite_setTexture(sprit, text, sfTrue);
-    sfSprite_setPosition(sprit, position);
-    sfRenderWindow_drawSprite(*window, sprit, NULL);
-    sfSprite_destroy(sprit);
-    sfTexture_destroy(text);
+    flame_sprite = sfSprite_create();
+    sfSprite_setTexture(flame_sprite, flame_text, sfTrue);
+    sfSprite_setPosition(flame_sprite, position);
+    sfRenderWindow_drawSprite(*window, flame_sprite, NULL);
+    sfSprite_destroy(flame_sprite);
+    sfTexture_destroy(flame_text);
 }
 
 void display_menu(sfRenderWindow *window, int image_index)
@@ -194,15 +194,17 @@ void display_menu(sfRenderWindow *window, int image_index)
         texture = sfTexture_createFromFile(ptr->images[image_index], NULL);
         sfSprite_setTexture(sprite, texture, sfTrue);
     }
-
-
     if (image_index == 1) {
         sfVector2f scale = {1.005, 1.002};
         sfSprite_setScale(sprite, scale);
     }
     sfRenderWindow_drawSprite(window, sprite, NULL);
     if (image_index == 2) {
-        //sfSound *song = sound();
+        if (song == NULL) {
+            song = sound();
+        } else if (sfSound_getStatus(song) == sfStopped) {
+            sfSound_play(song);
+        }
         sfVector2f scale = {1.250, 1.150};
         sfVector2f scale_flammes = {1.9, 1.9};
         sfSprite_setScale(sprite, scale);
@@ -216,6 +218,12 @@ void display_menu(sfRenderWindow *window, int image_index)
         draw_static_text(window, "START", (sfVector2f){932, 531});
         draw_static_text(window, "SETTING", (sfVector2f){932, 605});
         draw_static_text(window, "QUIT", (sfVector2f){932, 680});
+        } else {
+        if (song != NULL) {
+            sfSound_stop(song);
+            sfSound_destroy(song);
+            song = NULL;
+        }
     }
 
     if (image_index == 0) {
@@ -287,7 +295,6 @@ void menu(sfRenderWindow* window)
         i = 0;
     }
 }
-
 
 void launch_menu(sfRenderWindow *window)
 {

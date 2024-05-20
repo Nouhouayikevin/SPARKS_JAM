@@ -30,11 +30,14 @@ int get_time_elapsed(sfClock *clock)
     return (int)sfTime_asSeconds(sfClock_restart(clock));
 }
 
-void hystory_debut(sfRenderWindow *window)
+void hystory_debut(sfRenderWindow *window, sfSound *song)
 {
     anime_t image_font;
     image_font.a.c = sfClock_create();
     while (sfRenderWindow_isOpen(window)) {
+        if (sfSound_getStatus(song) == sfStopped) {
+        sfSound_play(song);
+    }
         while (sfRenderWindow_pollEvent(window, &image_font.a.e)) {
             events(&image_font.a, window);
         }

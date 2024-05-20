@@ -66,7 +66,7 @@ void entree_dans_le_labyrinthe(sfRenderWindow *win);
 void animation_phantom_vers_la_droite(anim_t *R, double timelaspe, sfClock *clock);
 void poursuite1(sfRenderWindow *win);
 double elapsed_time(sfClock *clock);
-void hystory_debut(sfRenderWindow *window);
+void hystory_debut(sfRenderWindow *window, sfSound *song);
 void events(anim_t *anim, sfRenderWindow * win);
 void vu_du_tresor(sfRenderWindow *win);
 void move_rect_ghost_back(sfIntRect *rect, int offset, int max_value);
@@ -144,6 +144,6 @@ void destroy_player_val(move_player_t p);
 rect_t *my_rectangle(rect_t *rectangle);
 affiche my_texture(move_player_t p);
 void draw_sprite(affiche key);
-int launch_labyrinth(sfRenderWindow *window);
+int launch_labyrinth(sfRenderWindow *window, sfSound *song);
 
 #endif /*___JAM___*/

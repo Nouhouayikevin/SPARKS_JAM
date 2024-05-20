@@ -40,7 +40,7 @@ void draw_sprite(affiche key)
     sfRenderWindow_drawSprite(key.window, key.sprite, NULL);
 }
 
-int launch_labyrinth(sfRenderWindow *window)
+int launch_labyrinth(sfRenderWindow *window, sfSound *song)
 {
     sfVector2f scale = {0.4, 0.35};
     sfVector2f life_pos = {1700, 10};
@@ -53,6 +53,9 @@ int launch_labyrinth(sfRenderWindow *window)
     key.window = window;
     sfRenderWindow_setFramerateLimit(key.window, 700);
     while (sfRenderWindow_isOpen(key.window)){
+        if (sfSound_getStatus(song) == sfStopped) {
+        sfSound_play(song);
+    }
         p = event_handler(key.event, key.window, scale, p, rectangle);
         sfRenderWindow_clear(key.window, sfBlack);
         draw_sprite(key);
