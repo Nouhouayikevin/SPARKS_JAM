@@ -94,6 +94,7 @@ typedef struct {
 flame_t initialize_flame_struct(void);
 flame_t pixels_flame(sfRenderWindow *window, flame_t f,
     sfVector2f pos);
+flame_t pixels_clock(sfRenderWindow *window, flame_t f, sfVector2f pos, sfClock *clock);
 
 /*____Protype__of___Renaud_____*/
 

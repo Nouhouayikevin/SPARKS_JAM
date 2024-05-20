@@ -64,6 +64,12 @@ void draw_sprite(affiche key)
 
 int launch_labyrinth(sfRenderWindow *window, sfSound *song)
 {
+    sfClock *clock1 = sfClock_create();
+    sfClock *clock2 = sfClock_create();
+    sfClock *clock3 = sfClock_create();
+    sfClock *clock4 = sfClock_create();
+    sfClock *clock5 = sfClock_create();
+    sfClock *clock6 = sfClock_create();
     sfVector2f scale = {0.4, 0.35};
     sfVector2f life_pos = {1700, 10};
     sfVideoMode m = {1920, 1080, 32};
@@ -103,13 +109,12 @@ int launch_labyrinth(sfRenderWindow *window, sfSound *song)
         sfVector2f scale = {0.5, 0.5};
         sfSprite_setPosition(p.sprite, pos);
         set_and_draw_player(p, key.window);
-        f1 = pixels_flame(key.window, f1, (sfVector2f){200, 787});
-        f2 = pixels_flame(key.window, f2, (sfVector2f){180, 80});
-        f3 = pixels_flame(key.window, f3, (sfVector2f){980, 420});
-        f4 = pixels_flame(key.window, f4, (sfVector2f){970, 715});
-        f5 = pixels_flame(key.window, f5, (sfVector2f){1600, 50});
-        f6 = pixels_flame(key.window, f6, (sfVector2f){1780, 860});
-        sfSleep(sfMilliseconds(50));
+        f1 = pixels_clock(key.window, f1, (sfVector2f){200, 787}, clock1);
+        f2 = pixels_clock(key.window, f2, (sfVector2f){180, 80}, clock2);
+        f3 = pixels_clock(key.window, f3, (sfVector2f){980, 420}, clock3);
+        f4 = pixels_clock(key.window, f4, (sfVector2f){970, 715}, clock4);
+        f5 = pixels_clock(key.window, f5, (sfVector2f){1600, 50}, clock5);
+        f6 = pixels_clock(key.window, f6, (sfVector2f){1780, 860}, clock6);
         draw_fire_rectangles(key.window, flames, 6);
         sfRenderWindow_display(key.window);
     }
@@ -117,4 +122,10 @@ int launch_labyrinth(sfRenderWindow *window, sfSound *song)
         sfRectangleShape_destroy(rectangle[i].rect);
         sfSprite_destroy(key.sprite);
         destroy_player_val(p);
+    sfClock_destroy(clock1);
+    sfClock_destroy(clock2);
+    sfClock_destroy(clock3);
+    sfClock_destroy(clock4);
+    sfClock_destroy(clock5);
+    sfClock_destroy(clock6);
 }

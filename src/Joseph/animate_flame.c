@@ -44,4 +44,32 @@ flame_t pixels_flame(sfRenderWindow *window, flame_t f, sfVector2f pos)
     return f;
 }
 
+flame_t pixels_clock(sfRenderWindow *window, flame_t f, sfVector2f pos, sfClock *clock)
+{
+    sfTime time = sfClock_getElapsedTime(clock);
+    float seconds = time.microseconds / 1000000.0;
+
+    if (seconds > 0.1) {
+        if (f.rect.top < 450) {
+            if (f.rect.left < 350) {
+                sfSprite_setTextureRect(f.sprite, f.rect);
+                sfRenderWindow_drawSprite(window, f.sprite, NULL);
+                f.rect.left += 96;
+            }
+            if (f.rect.left > 350) {
+                f.rect.left = 0;
+                f.rect.top += 96;
+            }
+        }
+        f.rect.top = (f.rect.top > 450) ? 0 : f.rect.top;
+        sfClock_restart(clock);
+    }
+
+    sfSprite_setPosition(f.sprite, pos);
+    sfSprite_setTextureRect(f.sprite, f.rect);
+    sfRenderWindow_drawSprite(window, f.sprite, NULL);
+    return f;
+}
+
+
 // (Atôtô gbé wê là)
