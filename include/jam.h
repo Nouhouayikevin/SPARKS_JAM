@@ -142,7 +142,7 @@ move_player_t cut_player_move(move_player_t p, sfEvent event, rect_t *rectangle)
 void set_and_draw_player(move_player_t p, sfRenderWindow *window);
 void destroy_player_val(move_player_t p);
 rect_t *my_rectangle(rect_t *rectangle);
-affiche my_texture(void);
+affiche my_texture(move_player_t p);
 void draw_sprite(affiche key);
 int launch_labyrinth(sfRenderWindow *window);
 
