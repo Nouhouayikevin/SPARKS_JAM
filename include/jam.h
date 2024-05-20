@@ -69,9 +69,14 @@ double elapsed_time(sfClock *clock);
 void hystory_debut(sfRenderWindow *window);
 void events(anim_t *anim, sfRenderWindow * win);
 void vu_du_tresor(sfRenderWindow *win);
+void move_rect_ghost_back(sfIntRect *rect, int offset, int max_value);
+void phantom_hidle_back(anim_t *R, double timelaspe, sfClock *clock);
+void poursuite1(sfRenderWindow *win);
 void poursuite2(sfRenderWindow *win);
 void move_rect_courir(sfIntRect *rect, int offset, int max_value);
 void animation_courir_vers_gauche(anim_t *R, double timelaspe, sfClock *clock);
+void animation_phantom_vers_la_droite(anim_t *R, double timelaspe, sfClock *clock);
+void animation_phantom_attack2(anim_t *R, double timelaspe, sfClock *clock);
 void explosion(anim_t *R, double timelaspe, sfClock *clock);
 
 

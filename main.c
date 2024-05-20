@@ -15,5 +15,6 @@ int main(void)
 
 
     window = sfRenderWindow_create(mode, "SPARKS", sfResize | sfClose, NULL);
+    sfRenderWindow_setFramerateLimit(window, 32);
     launch_menu(window);
 }
