@@ -7,6 +7,80 @@
 
 #include "../../include/jam.h"
 
+rect_t *create_rectangle(rect_t *rectangle)
+{
+    sfVector2f size = {30, 30};
+    sfVector2f posi = {200, 787};
+    rectangle = malloc(sizeof(rect_t) * 8);
+    int i = 0;
+    for (i = 0; i < 8; i++)
+        rectangle[i].rect = sfRectangleShape_create();
+    i = 0;
+    //fire 1
+    posi.x += 32;
+    posi.y += 55;
+    sfRectangleShape_setPosition(rectangle[i].rect, posi);
+    sfRectangleShape_setOutlineColor(rectangle[i].rect, sfTransparent);
+    sfRectangleShape_setPosition(rectangle[i].rect, posi);
+    sfRectangleShape_setSize(rectangle[i].rect, size);
+    sfRectangleShape_setOutlineThickness(rectangle[i].rect, 1.6);
+    sfRectangleShape_setFillColor(rectangle[i].rect, sfTransparent);
+    i++;
+    // fire 2
+    posi.x = 180 + 32;
+    posi.y = 80 + 55;
+    sfRectangleShape_setPosition(rectangle[i].rect, posi);
+    sfRectangleShape_setOutlineColor(rectangle[i].rect, sfTransparent);
+    sfRectangleShape_setPosition(rectangle[i].rect, posi);
+    sfRectangleShape_setSize(rectangle[i].rect, size);
+    sfRectangleShape_setOutlineThickness(rectangle[i].rect, 1.6);
+    sfRectangleShape_setFillColor(rectangle[i].rect, sfTransparent);
+    i++;
+    // fire 3
+    posi.x = 980 + 32;
+    posi.y = 420 + 55;
+    sfRectangleShape_setPosition(rectangle[i].rect, posi);
+    sfRectangleShape_setOutlineColor(rectangle[i].rect, sfTransparent);
+    sfRectangleShape_setPosition(rectangle[i].rect, posi);
+    sfRectangleShape_setSize(rectangle[i].rect, size);
+    sfRectangleShape_setOutlineThickness(rectangle[i].rect, 1.6);
+    sfRectangleShape_setFillColor(rectangle[i].rect, sfTransparent);
+    i++;
+    // fire 4
+    posi.x = 970 + 32;
+    posi.y = 715 + 55;
+    sfRectangleShape_setPosition(rectangle[i].rect, posi);
+    sfRectangleShape_setOutlineColor(rectangle[i].rect, sfTransparent);
+    sfRectangleShape_setPosition(rectangle[i].rect, posi);
+    sfRectangleShape_setSize(rectangle[i].rect, size);
+    sfRectangleShape_setOutlineThickness(rectangle[i].rect, 1.6);
+    sfRectangleShape_setFillColor(rectangle[i].rect, sfTransparent);
+    i++;
+    // fire 5
+    posi.x = 1600 + 32;
+    posi.y = 50 + 55;
+    sfRectangleShape_setPosition(rectangle[i].rect, posi);
+    sfRectangleShape_setOutlineColor(rectangle[i].rect, sfTransparent);
+    sfRectangleShape_setPosition(rectangle[i].rect, posi);
+    sfRectangleShape_setSize(rectangle[i].rect, size);
+    sfRectangleShape_setOutlineThickness(rectangle[i].rect, 1.6);
+    sfRectangleShape_setFillColor(rectangle[i].rect, sfTransparent);
+    i++;
+    // fire 6
+    posi.x = 1780 + 32;
+    posi.y = 860 + 55;
+    sfRectangleShape_setPosition(rectangle[i].rect, posi);
+    sfRectangleShape_setOutlineColor(rectangle[i].rect, sfTransparent);
+    sfRectangleShape_setPosition(rectangle[i].rect, posi);
+    sfRectangleShape_setSize(rectangle[i].rect, size);
+    sfRectangleShape_setOutlineThickness(rectangle[i].rect, 1.6);
+    sfRectangleShape_setFillColor(rectangle[i].rect, sfTransparent);
+    i++;
+    rectangle[i].rect = NULL;
+    return rectangle;
+}
+
+
 rect_t *my_rectangle(rect_t *rectangle)
 {
 

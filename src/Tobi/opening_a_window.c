@@ -5,7 +5,7 @@
 ** Day13
 */
 #include "../../include/jam.h"
-
+int nuit = 230;
 move_player_t event_handler(sfEvent e, sfRenderWindow *w, sfVector2f sc, move_player_t p, rect_t *rectangle)
 {
     sfVector2i mouse = sfMouse_getPosition((const sfWindow *)w);
@@ -22,12 +22,17 @@ affiche my_texture(move_player_t p)
 {
     affiche key;
     sfVector2f scale = {1, 0.55};
+    sfVector2f size = {1920, 1080};
+    sfVector2f pos = {0, 0};
     sfIntRect p_rect = sfSprite_getTextureRect(p.sprite);
     p_rect.height += -400;
     p_rect.width += -400;
     p_rect.left += -400;
     p_rect.top += -400;
-
+    key.monde = sfRectangleShape_create();
+    sfRectangleShape_setPosition(key.monde, pos);
+    sfRectangleShape_setSize(key.monde, size);
+    sfRectangleShape_setFillColor(key.monde, sfColor_fromRGBA(0,0,0, 230));
     key.texture = sfTexture_createFromFile("./src/Tobi/lab.jpg", NULL);
     key.sprite = sfSprite_create();
     sfSprite_setTexture(key.sprite, key.texture, sfTrue);
@@ -87,6 +92,7 @@ int launch_labyrinth(sfRenderWindow *window, sfSound *song)
     flame_t flames[] = {f1, f2, f3, f4, f5, f6};
 
     key.window = window;
+    rect_t *fire_angle = create_rectangle(fire_angle);
     sfRenderWindow_setFramerateLimit(key.window, 700);
     while (sfRenderWindow_isOpen(key.window)){
         if (sfSound_getStatus(song) == sfStopped) {
@@ -95,6 +101,9 @@ int launch_labyrinth(sfRenderWindow *window, sfSound *song)
         p = event_handler(key.event, key.window, scale, p, rectangle);
         sfRenderWindow_clear(key.window, sfBlack);
         draw_sprite(key);
+        sfRenderWindow_drawRectangleShape(key.window, key.monde, NULL);
+        for (i = 0; fire_angle[i].rect != NULL; i++)
+            sfRenderWindow_drawRectangleShape(key.window, fire_angle[i].rect, NULL);
         i = 0;
         while (rectangle[i].rect != NULL){
             sfRenderWindow_drawRectangleShape(key.window, rectangle[i].rect, NULL);
@@ -109,14 +118,49 @@ int launch_labyrinth(sfRenderWindow *window, sfSound *song)
         sfVector2f scale = {0.5, 0.5};
         sfSprite_setPosition(p.sprite, pos);
         set_and_draw_player(p, key.window);
-        f1 = pixels_clock(key.window, f1, (sfVector2f){200, 787}, clock1);
-        f2 = pixels_clock(key.window, f2, (sfVector2f){180, 80}, clock2);
-        f3 = pixels_clock(key.window, f3, (sfVector2f){980, 420}, clock3);
-        f4 = pixels_clock(key.window, f4, (sfVector2f){970, 715}, clock4);
-        f5 = pixels_clock(key.window, f5, (sfVector2f){1600, 50}, clock5);
-        f6 = pixels_clock(key.window, f6, (sfVector2f){1780, 860}, clock6);
-        draw_fire_rectangles(key.window, flames, 6);
-        sfRenderWindow_display(key.window);
+        if (f1.f == 0)
+            f1 = pixels_clock(key.window, f1, (sfVector2f){200, 787}, clock1);
+        if (rect_col(fire_angle[0].rect, sfRectangleShape_getPosition(p.outline), sfRectangleShape_getSize(p.outline)) == 0 && f1.f == 0){
+            f1.f = 1;
+            nuit += -7;
+            sfRectangleShape_setFillColor(key.monde, sfColor_fromRGBA(0,0,0,nuit));
+        }
+        if (f2.f == 0)
+            f2 = pixels_clock(key.window, f2, (sfVector2f){180, 80}, clock2);
+        if (rect_col(fire_angle[1].rect, sfRectangleShape_getPosition(p.outline), sfRectangleShape_getSize(p.outline)) == 0 && f2.f == 0){
+            f2.f = 1;
+            nuit += -9;
+            sfRectangleShape_setFillColor(key.monde, sfColor_fromRGBA(0,0,0,nuit));
+        }
+        if (f3.f == 0)
+            f3 = pixels_clock(key.window, f3, (sfVector2f){980, 420}, clock3);
+        if (rect_col(fire_angle[2].rect, sfRectangleShape_getPosition(p.outline), sfRectangleShape_getSize(p.outline)) == 0 && f3.f == 0){
+            f3.f = 1;
+            nuit += -11;
+            sfRectangleShape_setFillColor(key.monde, sfColor_fromRGBA(0,0,0,nuit));
+        }
+        if (f4.f == 0)
+            f4 = pixels_clock(key.window, f4, (sfVector2f){970, 715}, clock4);
+        if (rect_col(fire_angle[3].rect, sfRectangleShape_getPosition(p.outline), sfRectangleShape_getSize(p.outline)) == 0 && f4.f == 0){
+            f4.f = 1;
+            nuit += -13;
+            sfRectangleShape_setFillColor(key.monde, sfColor_fromRGBA(0,0,0,nuit));
+        }
+        if (f5.f == 0)
+            f5 = pixels_clock(key.window, f5, (sfVector2f){1600, 50}, clock5);
+        if (rect_col(fire_angle[4].rect, sfRectangleShape_getPosition(p.outline), sfRectangleShape_getSize(p.outline)) == 0 && f5.f == 0){
+            f5.f = 1;
+            nuit += -15;
+            sfRectangleShape_setFillColor(key.monde, sfColor_fromRGBA(0,0,0,nuit));
+        }
+        if (f6.f == 0)
+            f6 = pixels_clock(key.window, f6, (sfVector2f){1780, 860}, clock6);
+        if (rect_col(fire_angle[5].rect, sfRectangleShape_getPosition(p.outline), sfRectangleShape_getSize(p.outline)) == 0 && f6.f == 0){
+            f6.f = 1;
+            nuit += -15;
+            sfRectangleShape_setFillColor(key.monde, sfColor_fromRGBA(0,0,0,nuit));
+        }
+        sfRenderWindow_display(key.window);sfRenderWindow_display(key.window);
     }
     for (i = 0; rectangle[i].rect != NULL; i++)
         sfRectangleShape_destroy(rectangle[i].rect);

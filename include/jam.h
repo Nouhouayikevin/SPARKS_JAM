@@ -86,6 +86,7 @@ void explosion(anim_t *R, double timelaspe, sfClock *clock);
 /*____Protype__of___Joseph_____*/
 
 typedef struct {
+    int f;
     sfIntRect rect;
     sfSprite *sprite;
     sfTexture *texture;
@@ -103,6 +104,7 @@ flame_t pixels_clock(sfRenderWindow *window, flame_t f, sfVector2f pos, sfClock 
 /*____Protype__of___Tobi_____*/
 
 typedef struct sprite_text {
+    sfRectangleShape *monde;
     sfSoundBuffer* soundbuffer;
     sfSound* sound;
     sfIntRect rect;
@@ -134,6 +136,7 @@ typedef struct {
     sfRectangleShape *outline;
     int collide;
 } move_player_t;
+rect_t *create_rectangle(rect_t *rectangle);
 move_player_t event_handler(sfEvent e, sfRenderWindow *w, sfVector2f sc, move_player_t p, rect_t *rectangle);
 int rect_col(sfRectangleShape *rect2, sfVector2f pos, sfVector2f pos_size);
 int in_collide(rect_t *rectangle, move_player_t p, int x, int y);

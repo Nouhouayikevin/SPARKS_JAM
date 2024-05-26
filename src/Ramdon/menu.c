@@ -143,7 +143,7 @@ void draw_text(sfRenderWindow *window, char *text, sfVector2f position)
 
 void draw_text_char_by_char(sfRenderWindow *window, char *text, sfVector2f position)
 {
-    int len = strlen(text);
+   /* int len = strlen(text);
     char *temp_text = malloc(len + 1);
 
     for (int i = 0; i < len; i++) {
@@ -160,7 +160,7 @@ void draw_text_char_by_char(sfRenderWindow *window, char *text, sfVector2f posit
         sfRenderWindow_display(window);
         sfSleep(sfMilliseconds(100));
     }
-    free(temp_text);
+    free(temp_text);*/
 }
 
 void flame_animation(sfRenderWindow **window, int flame_index)
