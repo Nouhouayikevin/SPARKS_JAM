@@ -6,24 +6,20 @@
 */
 
 #include "../../../include/jam.h"
-
 int main(void)
 {
     sfTime time;
     sfEvent event;
-    sfIntRect rect;
     sfRenderWindow *window;
-    sfVideoMode mode = {1920, 1080, 32};
+    sfVector2f pos = {0, 500};
+    sfIntRect rect = {0, 704, 64, 64};
     sfClock *clock = sfClock_create();
+    sfVideoMode mode = {1920, 1080, 32};
     sfSprite *sprite = sfSprite_create();
     sfSprite *background_sprite = sfSprite_create();
     sfTexture *texture = sfTexture_createFromFile("../img/male.png", NULL);
-    sfTexture *background_texture = sfTexture_createFromFile("../image/Forest.jpg", NULL);
+    sfTexture *background_texture = sfTexture_createFromFile("../images/Forest.jpg", NULL);
 
-    rect.top = 0;
-    rect.left = 0;
-    rect.width = 64;
-    rect.height = 64;
     sfSprite_setTexture(sprite, texture, sfFalse);
     sfSprite_setTexture(background_sprite, background_texture, sfFalse);
     window = sfRenderWindow_create(mode, "SFML window", sfResize | sfClose, NULL);
@@ -34,10 +30,24 @@ int main(void)
             if (event.type == sfEvtClosed)
                 sfRenderWindow_close(window);
         }
-        if (rect.top < 1000) {
-            if (rect.left < 420 && rect.top < 230) {
+        if (pos.x > 500.0 && rect.top == 640) {
+            rect.top = 0;
+            rect.left = 0;
+        }
+        if (pos.x < 510) {
+            if (rect.left < 550 && rect.top != 640) {
                 rect.left += 64;
+                pos.x += 5.5;
             }
+            if (pos.x + 5.0 >= 500) {
+                rect.top = 640;
+                pos.x += 2.5;
+            }
+            rect.left = (rect.left < 128 && rect.top == 640) ? rect.left + 64 : rect.left;
+            rect.left = (rect.left > 550 && rect.top != 640) ? 0 : rect.left;
+        }
+        if (rect.top < 1000 && pos.x >= 505) {
+            rect.left = (rect.left < 420 && rect.top < 230) ? rect.left + 64 : rect.left;
             if (rect.left > 420 && rect.top < 230) {
                 rect.left = 0;
                 rect.top += 64;
@@ -53,6 +63,7 @@ int main(void)
         }
         if (rect.top > 1000)
             rect.top = 0;
+        sfSprite_setPosition(sprite, pos);
         sfSprite_setTextureRect(sprite, rect);
         sfRenderWindow_drawSprite(window, background_sprite, NULL);
         sfRenderWindow_drawSprite(window, sprite, NULL);
