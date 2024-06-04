@@ -8,6 +8,7 @@
 
 int j;
 int a;
+#define MOUSE event.mouseButton
 #include <time.h>
 
 #include "../../include/jam.h"
@@ -55,7 +56,23 @@ int menu_event2(sfRenderWindow *window, sfEvent event, int *image_index)
 
     if (event.type == sfEvtClosed)
         sfRenderWindow_close(window);
+    if (event.type == sfEvtMouseButtonPressed && MOUSE.x >= 908
+        && MOUSE.x <= 938 && MOUSE.y >= 629 && MOUSE.y <= 657) {
+        printf("iii");
+        return 1;
+        }
+    if (event.type == sfEvtMouseButtonPressed && MOUSE.x >= 962
+        && MOUSE.x <= 992 && MOUSE.y >= 614 && MOUSE.y <= 646) {
+        printf("eee");
+	return 1;
+        }
+    if (event.type == sfEvtMouseButtonPressed && MOUSE.x >= 1020
+        && MOUSE.x <= 1052 && MOUSE.y >= 629 && MOUSE.y <= 658) {
+        printf("aaa");
+        return 1;
+        }
     if (event.type == sfEvtMouseButtonPressed) {
+	printf("x1:%d, y2 :%d", MOUSE.x,MOUSE.y);
         return 1;
     }
     return 0;

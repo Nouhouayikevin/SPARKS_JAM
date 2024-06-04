@@ -5,7 +5,7 @@
 ## Makefile
 ##
 
-SRC	=	defeat.c	\
+SRC	=	victory.c	\
 
 OBJ	=	$(SRC:.c=.o)
 

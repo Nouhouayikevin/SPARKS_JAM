@@ -6,7 +6,7 @@
 */
 
 int z = 0;
-
+#define MOUSE event.mouseButton
 /*typedefstruct variables {
     sfSound *sound;
     sfSoundBuffer *musique;
@@ -116,7 +116,15 @@ void close_boucle_menu(menu *menu)
     }
 }
 */
-
+/*void button_defeat()
+{
+    if (menu->event.type == sfEvtMouseButtonPressed
+        /*&& MOUSE.x >= 877 && MOUSE.x <= 965 &&
+	  MOUSE.y >= 480 && MOUSE.y <= 545) {
+	printf("x1:%d, x2 :%d, y1:%d, y2 :%d", MOUSE.x, MOUSE.x, MOUSE.y, MOUSE.y);
+        //sfSound_pause(menu->sound);
+    }
+}*/
 sfSound *sound()
 {
     sfSound *sound;
@@ -180,9 +188,23 @@ int menu_event(sfRenderWindow *window, sfEvent event, int *image_index)
 
     if (event.type == sfEvtClosed)
         sfRenderWindow_close(window);
-    if (event.type == sfEvtMouseButtonPressed) {
+    if (event.type == sfEvtMouseButtonPressed && MOUSE.x >= 689
+	&& MOUSE.x <= 758 && MOUSE.y >= 705 && MOUSE.y <= 774) {
+	printf("iii");
         return 1;
-    }
+	}
+    if (event.type == sfEvtMouseButtonPressed && MOUSE.x >= 794              
+        && MOUSE.x <= 863 && MOUSE.y >= 682 && MOUSE.y <= 749) {
+        printf("eee");
+        return 1;
+	}
+    if (event.type == sfEvtMouseButtonPressed && MOUSE.x >= 908             
+        && MOUSE.x <= 982 && MOUSE.y >= 705 && MOUSE.y <= 782) {
+        printf("aaa");
+        return 1;
+        }
+    if (event.type == sfEvtMouseButtonPressed)
+        printf("x1:%d, y2 :%d", MOUSE.x,MOUSE.y);
     return 0;
 }
 
