@@ -23,6 +23,7 @@ SRC	=	main.c	\
 		src/Kevin/scenario_1.c	\
 		src/Kevin/scenario2.c	\
 		src/Kevin/animation.c	\
+		src/Julci/victory.c	\
 
 OBJ	=	$(SRC:.c=.o)
 

@@ -8,6 +8,7 @@
 #include "../../include/jam.h"
 
 /*************************poursuite 1************************************/
+
 void explosion(anim_t *R, double timelaspe, sfClock *clock)
 {
     sfTime time;

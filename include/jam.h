@@ -32,11 +32,13 @@ typedef struct combo {
 } combo_t;
 
 void display_menu(sfRenderWindow *window, int image_index);
-int menu_event(sfRenderWindow *window, sfEvent event, int *image_index);
-void menu(sfRenderWindow* window);
 void init_menu();
 void free_menu();
 void launch_menu(sfRenderWindow *window);
+int menu_event(sfRenderWindow *window, sfEvent event, int *image_index);
+void menu(sfRenderWindow* window);
+int menu_event(sfRenderWindow *window, sfEvent event, int *image_index);
+void flame_animation(sfRenderWindow **window, int flame_index);
 
 /*____Protype__of___Kevin_____*/
 typedef struct anim_s {
@@ -81,7 +83,10 @@ void explosion(anim_t *R, double timelaspe, sfClock *clock);
 
 /*____Protype__of___Julci_____*/
 
-
+void move_rect2(sfVector2f *pos,sfIntRect *rect);
+int menu_event2(sfRenderWindow *window, sfEvent event, int *image_index);
+void function(sfRenderWindow *window, int *image_index, sfTexture *texture, sfSprite *sprite);
+void victory(sfRenderWindow* window);
 
 /*____Protype__of___Joseph_____*/
 

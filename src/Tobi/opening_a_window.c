@@ -5,7 +5,9 @@
 ** Day13
 */
 #include "../../include/jam.h"
+
 int nuit = 230;
+
 move_player_t event_handler(sfEvent e, sfRenderWindow *w, sfVector2f sc, move_player_t p, rect_t *rectangle)
 {
     sfVector2i mouse = sfMouse_getPosition((const sfWindow *)w);
@@ -66,6 +68,17 @@ void draw_sprite(affiche key)
 {
     sfRenderWindow_drawSprite(key.window, key.sprite, NULL);
 }
+
+
+int out_of_laby(move_player_t *p)
+{
+    if (p->pos.x > 1920 &&
+    p->pos.y > 100)
+    return 1;
+    else
+    return 0;
+}
+
 
 int launch_labyrinth(sfRenderWindow *window, sfSound *song)
 {
@@ -160,7 +173,10 @@ int launch_labyrinth(sfRenderWindow *window, sfSound *song)
             nuit += -15;
             sfRectangleShape_setFillColor(key.monde, sfColor_fromRGBA(0,0,0,nuit));
         }
-        sfRenderWindow_display(key.window);sfRenderWindow_display(key.window);
+        sfRenderWindow_display(key.window);
+        if(out_of_laby(&p) == 1) {
+            victory(window);
+        }
     }
     for (i = 0; rectangle[i].rect != NULL; i++)
         sfRectangleShape_destroy(rectangle[i].rect);
