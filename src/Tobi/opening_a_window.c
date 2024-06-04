@@ -69,6 +69,19 @@ void draw_sprite(affiche key)
     sfRenderWindow_drawSprite(key.window, key.sprite, NULL);
 }
 
+void phantom_poursuit_laby(anim_t *phantom,sfVector2f phanto, sfVector2f player)
+{
+    float dx = (player.x - phanto.x);
+    float dy = (player.y - phanto.y);
+    float d = sqrt(pow(dx, 2) + pow(dy, 2));
+    sfVector2f vec;
+
+    dx += ceil(((dx / d)) * 2);
+    dy += ceil(((dy / d)) * 2);
+    vec.x = dx;
+    vec.y = dy;
+    sfSprite_setPosition(phantom->key, vec);
+}
 
 int out_of_laby(move_player_t *p)
 {
@@ -82,6 +95,16 @@ int out_of_laby(move_player_t *p)
 
 int launch_labyrinth(sfRenderWindow *window, sfSound *song)
 {
+    anime_t phantom;
+    phantom.a.c = sfClock_create();
+    phantom.a.rect = (sfIntRect) {0, 0, 128, 128};
+    phantom.a.key = sfSprite_create();
+    phantom.a.T = sfTexture_createFromFile("./src/Kevin/Yurei/Walk.png", NULL);
+    sfSprite_setTexture(phantom.a.key,phantom.a.T,sfTrue);
+    sfSprite_setTextureRect(phantom.a.key, phantom.a.rect);
+    sfSprite_setPosition(phantom.a.key, (sfVector2f){450, 100});
+    sfSprite_setScale(phantom.a.key, (sfVector2f){1, 1});
+    // le sprite du phantom en haut
     sfClock *clock1 = sfClock_create();
     sfClock *clock2 = sfClock_create();
     sfClock *clock3 = sfClock_create();
@@ -173,10 +196,15 @@ int launch_labyrinth(sfRenderWindow *window, sfSound *song)
             nuit += -15;
             sfRectangleShape_setFillColor(key.monde, sfColor_fromRGBA(0,0,0,nuit));
         }
+        //phantom la partie ou kevin code
+        sfSprite_getPosition(&phantom.a.key);
+        phantom_poursuit_laby(&phantom.a,sfSprite_getPosition(&phantom.a.key), sfSprite_getPosition(&p.sprite));
+        animation_phantom_vers_la_droite(&phantom.a, 0.2, phantom.a.c);
+        sfRenderWindow_drawSprite(window,phantom.a.key, NULL);
         sfRenderWindow_display(key.window);
-        if(out_of_laby(&p) == 1) {
+        if(out_of_laby(&p) == 1)
             victory(window);
-        }
+        //fin de mon code
     }
     for (i = 0; rectangle[i].rect != NULL; i++)
         sfRectangleShape_destroy(rectangle[i].rect);
@@ -188,4 +216,9 @@ int launch_labyrinth(sfRenderWindow *window, sfSound *song)
     sfClock_destroy(clock4);
     sfClock_destroy(clock5);
     sfClock_destroy(clock6);
+
+    //destroy du phantom en bas
+    sfSprite_destroy(phantom.a.key);
+    sfClock_destroy(phantom.a.c);
+    sfTexture_destroy(phantom.a.T);
 }
