@@ -6,7 +6,7 @@
 */
 
 
-int x;
+int j;
 int a;
 #include <time.h>
 
@@ -92,13 +92,13 @@ void function(sfRenderWindow *window, int *image_index, sfTexture *texture, \
 	texture = sfTexture_createFromFile(ptr->images[16], NULL);
 	sfSprite_setTexture(sprite, texture, sfTrue);
 	sfRenderWindow_drawSprite(window, sprite, NULL);
-	x = 1;
+	j = 1;
     }
 }
 
 void victory(sfRenderWindow* window)
 {
-    x = 0;
+    j = 0;
     int y = 0;
     sfVector2f pos1 = {0, 500}; // 500
     sfIntRect rect1 = {0, 704, 64, 64};
@@ -132,7 +132,7 @@ void victory(sfRenderWindow* window)
         seconds = time.microseconds / 1000000.0;
 	if (seconds > 0.0002 && y != 1) { 
 	    function(window, &image_index,texture, sprite);
-	    if (x == 1) {
+	    if (j == 1) {
 		y = 1;
 		sfSleep(sfMilliseconds(800));
 		sfRenderWindow_drawSprite(window, sprite, NULL);
