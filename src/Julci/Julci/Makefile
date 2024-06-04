@@ -6,7 +6,6 @@
 ##
 
 SRC	=	victory.c	\
-		defeat.c
 
 OBJ	=	$(SRC:.c=.o)
 

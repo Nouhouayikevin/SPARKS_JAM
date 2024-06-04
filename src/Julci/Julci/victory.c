@@ -65,23 +65,23 @@ void function(sfRenderWindow *window, int *image_index, sfTexture *texture, \
 	      sfSprite *sprite){
     menu_t *ptr = malloc(sizeof(menu_t));
     ptr->images = malloc(sizeof(char *) * 18);
-    ptr->images[0] = "./src/Julci/images/img1.jpg";
-    ptr->images[1] = "./src/Julci/images/img2.jpg";
-    ptr->images[2] = "./src/Julci/images/img3.jpg";
-    ptr->images[3] = "./src/Julci/images/img4.jpg";
-    ptr->images[4] = "./src/Julci/images/img5.jpg";
-    ptr->images[5] = "./src/Julci/images/img6.jpg";
-    ptr->images[6] = "./src/Julci/images/img7.jpg";
-    ptr->images[7] = "./src/Julci/images/img8.jpg";
-    ptr->images[8] = "./src/Julci/images/img9.jpg";
-    ptr->images[9] = "./src/Julci/images/img10.jpg";
-    ptr->images[10] = "./src/Julci/images/img11.jpg";
-    ptr->images[11] = "./src/Julci/images/img12.jpg";
-    ptr->images[12] = "./src/Julci/images/img13.jpg";
-    ptr->images[13] = "./src/Julci/images/img14.jpg";
-    ptr->images[14] = "./src/Julci/images/img15.jpg";
-    ptr->images[15] = "./src/Julci/images/img16.jpg";
-    ptr->images[16] = "./src/Julci/images/Forest.jpg";
+    ptr->images[0] = "images/img1.jpg";
+    ptr->images[1] = "images/img2.jpg";
+    ptr->images[2] = "images/img3.jpg";
+    ptr->images[3] = "images/img4.jpg";
+    ptr->images[4] = "images/img5.jpg";
+    ptr->images[5] = "images/img6.jpg";
+    ptr->images[6] = "images/img7.jpg";
+    ptr->images[7] = "images/img8.jpg";
+    ptr->images[8] = "images/img9.jpg";
+    ptr->images[9] = "images/img10.jpg";
+    ptr->images[10] = "images/img11.jpg";
+    ptr->images[11] = "images/img12.jpg";
+    ptr->images[12] = "images/img13.jpg";
+    ptr->images[13] = "images/img14.jpg";
+    ptr->images[14] = "images/img15.jpg";
+    ptr->images[15] = "images/img16.jpg";
+    ptr->images[16] = "images/Forest.jpg";
     ptr->images[17] = NULL;
     texture = sfTexture_createFromFile(ptr->images[*image_index], NULL);
     sfSprite_setTexture(sprite, texture, sfTrue);
@@ -113,13 +113,16 @@ void victory(sfRenderWindow* window)
     sfEvent event;
     sfTexture *texture;
     sfSprite *human = sfSprite_create();
-    sfTexture *texture_h = sfTexture_createFromFile("./src/Julci/img/male.png", NULL);
+    sfSprite *stat = sfSprite_create();
+    sfTexture *stat_h = sfTexture_createFromFile("images/you_win.png", NULL);
+    sfTexture *texture_h = sfTexture_createFromFile("img/male.png", NULL);
     menu_t *ptr = malloc(sizeof(menu_t));
     ptr->images = malloc(sizeof(char *) * 4);
     sprite = sfSprite_create();
-    ptr->images[0] = "./src/Julci/images/Forests.png";
-    ptr->images[1] = "./src/Julci/images/defaite.png";
-    texture = sfTexture_createFromFile("./src/Julci/images/Forest.jpg", NULL);
+    ptr->images[0] = "images/Forests.png";
+    ptr->images[1] = "images/defaite.png";
+    texture = sfTexture_createFromFile("images/Forest.jpg", NULL);
+    sfSprite_setTexture(stat, stat_h, sfTrue);
     sfSprite_setTexture(sprite, texture, sfTrue);
     sfSprite_setTexture(human, texture_h, sfFalse);
     sfRenderWindow_setFramerateLimit(window, 15); //12
@@ -146,7 +149,10 @@ void victory(sfRenderWindow* window)
 	    sfSprite_setPosition(human, pos1);
 	    sfSprite_setTextureRect(human, rect1);
 	    sfSprite_setScale(human, scale);
+	    sfSprite_setPosition(stat,  (sfVector2f){800, 350});
+	     sfSprite_setScale(stat, (sfVector2f){0.8, 0.8});
 	    sfRenderWindow_drawSprite(window, human, NULL);
+	    sfRenderWindow_drawSprite(window, stat, NULL);
 	}
         sfRenderWindow_display(window);
     }
@@ -158,9 +164,8 @@ void victory(sfRenderWindow* window)
     sfRenderWindow* window;
     sfVideoMode mode = {1920, 1080};
     window = sfRenderWindow_create(mode, "defeat", sfResize | sfClose, NULL);
-    if (a == 0)
-	defeat(window);
-    else
+    //if (a == 0)
+    //defeat(window);
+    //else
 	victory(window);
-}
-*/
+	}*/

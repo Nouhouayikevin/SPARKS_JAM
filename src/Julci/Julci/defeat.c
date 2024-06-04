@@ -228,11 +228,11 @@ void defeat(sfRenderWindow* window)
 	time = sfClock_getElapsedTime(clock);
 	seconds = time.microseconds / 1000000.0;
 	sfRenderWindow_drawSprite(window, sprite1, NULL);
-	sfSprite_setPosition(lose,  (sfVector2f){640, 500});
-	sfSprite_setPosition(crane,  (sfVector2f){767, 585});
+	sfSprite_setPosition(lose,  (sfVector2f){500, 200});
+	//sfSprite_setPosition(crane,  (sfVector2f){767, 585});
 	sfSprite_setScale(lose, (sfVector2f){1.6, 1.6}); 
 	sfRenderWindow_drawSprite(window, lose, NULL);
-	sfRenderWindow_drawSprite(window, crane, NULL);
+	//sfRenderWindow_drawSprite(window, crane, NULL);
 	if (seconds > 0.10) { 
 	    move_rect(&rect);
 	    position(&pos);
