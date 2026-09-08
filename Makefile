@@ -24,6 +24,8 @@ SRC	=	main.c	\
 		src/Kevin/scenario2.c	\
 		src/Kevin/animation.c	\
 		src/Julci/victory.c	\
+		src/Julci/defeat.c	\
+
 
 OBJ	=	$(SRC:.c=.o)
 

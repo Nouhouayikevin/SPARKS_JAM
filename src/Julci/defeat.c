@@ -4,7 +4,7 @@
 ** File description:
 ** victory
 */
-
+#include "../../include/jam.h"
 int z = 0;
 #define MOUSE event.mouseButton
 /*typedefstruct variables {
@@ -32,7 +32,6 @@ int z = 0;
     sfVector2i position;
 } data;*/
 
-#include "../../include/jam.h"
 
 
 /*void init_rect_and_mode(data *data)
@@ -125,15 +124,15 @@ void close_boucle_menu(menu *menu)
         //sfSound_pause(menu->sound);
     }
 }*/
-sfSound *sound()
+sfSound *sound_julci()
 {
-    sfSound *sound;
+    sfSound *soundy;
     sfSoundBuffer *musique;
-    sound = sfSound_create();
-    musique = sfSoundBuffer_createFromFile("musique/song2.ogg");
-    sfSound_setBuffer(sound, musique);
-    sfSound_play(sound);
-    return sound;
+    soundy = sfSound_create();
+    musique = sfSoundBuffer_createFromFile("./src/Julci/musique/song2.ogg");
+    sfSound_setBuffer(soundy, musique);
+    sfSound_play(soundy);
+    return soundy;
 }
 
 void move_rect(sfIntRect *rect)
@@ -182,7 +181,7 @@ void display(sfRenderWindow *window, int image_index)
     sfTexture_destroy(texture);
 }
 
-int menu_event(sfRenderWindow *window, sfEvent event, int *image_index)
+int menu_event_julci(sfRenderWindow *window, sfEvent event, int *image_index)
 {
     sfVector2i mouse = sfMouse_getPosition((const sfWindow*)window);
 
@@ -208,8 +207,13 @@ int menu_event(sfRenderWindow *window, sfEvent event, int *image_index)
     return 0;
 }
 
-void defeat(sfRenderWindow* window)
+void defeat(sfRenderWindow* window , int t)
 {
+    bttn_t mn;
+    mn.i = t;
+    mn.text = sfText_create();
+    mn.font = sfFont_createFromFile("./src/Julci/font/AVELIRE.otf");
+    mn.vecp = (sfVector2f) {400,400};
     sfVector2f scale = {4, 4};
     sfVector2f pos = {0, 20};
     sfSprite *sprite;
@@ -227,8 +231,8 @@ void defeat(sfRenderWindow* window)
     menu_t *ptr = malloc(sizeof(menu_t));
     ptr->images = malloc(sizeof(char *) * 4);
 
-    ptr->images[0] = "images/ghosts.png";
-    ptr->images[1] = "images/defaite.png";
+    ptr->images[0] = "./src/Julci/images/ghosts.png";
+    ptr->images[1] = "./src/Julci/images/defaite.png";
     texture = sfTexture_createFromFile(ptr->images[0], NULL);
     texture1 = sfTexture_createFromFile(ptr->images[1], NULL);
     sprite = sfSprite_create();
@@ -237,14 +241,14 @@ void defeat(sfRenderWindow* window)
     crane = sfSprite_create();
     sfSprite_setTexture(sprite, texture, sfTrue);
     sfSprite_setTexture(sprite1, texture1, sfTrue);
-    texture1 = sfTexture_createFromFile("images/crâne.png", NULL);
+    texture1 = sfTexture_createFromFile("./src/Julci/images/crâne.png", NULL);
     sfSprite_setTexture(crane, texture1, sfTrue);
-    texture1 = sfTexture_createFromFile("images/you_lose.jpeg", NULL);
+    texture1 = sfTexture_createFromFile("./src/Julci/images/you_lose.jpeg", NULL);
     sfSprite_setTexture(lose, texture1, sfTrue);
-    sfSound *song = sound();
+    sfSound *song = sound_julci();
     while (sfRenderWindow_isOpen(window)) {
         while (sfRenderWindow_pollEvent(window, &event)) {
-            menu_event(window, event, &image_index);
+            menu_event_julci(window, event, &image_index);
         }
         sfRenderWindow_clear(window, sfBlack);
 	time = sfClock_getElapsedTime(clock);
@@ -262,6 +266,7 @@ void defeat(sfRenderWindow* window)
 	    sfSprite_setTextureRect(sprite, rect);
 	    sfSprite_setScale(sprite, scale); 
 	    sfRenderWindow_drawSprite(window, sprite, NULL); 
+
 	    z++; 
 	    sfClock_restart(clock);
 	} 

@@ -5,13 +5,56 @@
 ** victory
 */
 
-
 int j;
 int a;
 #define MOUSE event.mouseButton
 #include <time.h>
 
 #include "../../include/jam.h"
+void echange(char *s, char *p1)
+{
+    char c;
+
+    c = *s;
+    *s = *p1;
+    *p1 = c;
+}
+
+
+int nbrlen(int nb)
+{
+    int i = 0;
+
+    if (nb == 0)
+        return 1;
+    while (nb > 0) {
+        nb /= 10;
+        i++;
+    }
+    return i;
+}
+
+char *reverse_string(char *str)
+{
+    char *j = str;
+    char *p = str;
+    int i = 0;
+    int k = 0;
+
+    while (*str != '\0') {
+        str++;
+        i++;
+    }
+    str--;
+    while (k < (i / 2)) {
+        echange(str, p);
+        p++;
+        str--;
+        k++;
+    }
+    return j;
+}
+
 
 void move_rect2(sfVector2f *pos,sfIntRect *rect)
 {
@@ -82,23 +125,23 @@ void function(sfRenderWindow *window, int *image_index, sfTexture *texture, \
 	      sfSprite *sprite){
     menu_t *ptr = malloc(sizeof(menu_t));
     ptr->images = malloc(sizeof(char *) * 18);
-    ptr->images[0] = "images/img1.jpg";
-    ptr->images[1] = "images/img2.jpg";
-    ptr->images[2] = "images/img3.jpg";
-    ptr->images[3] = "images/img4.jpg";
-    ptr->images[4] = "images/img5.jpg";
-    ptr->images[5] = "images/img6.jpg";
-    ptr->images[6] = "images/img7.jpg";
-    ptr->images[7] = "images/img8.jpg";
-    ptr->images[8] = "images/img9.jpg";
-    ptr->images[9] = "images/img10.jpg";
-    ptr->images[10] = "images/img11.jpg";
-    ptr->images[11] = "images/img12.jpg";
-    ptr->images[12] = "images/img13.jpg";
-    ptr->images[13] = "images/img14.jpg";
-    ptr->images[14] = "images/img15.jpg";
-    ptr->images[15] = "images/img16.jpg";
-    ptr->images[16] = "images/Forest.jpg";
+    ptr->images[0] = "./src/Julci/images/img1.jpg";
+    ptr->images[1] = "./src/Julci/images/img2.jpg";
+    ptr->images[2] = "./src/Julci/images/img3.jpg";
+    ptr->images[3] = "./src/Julci/images/img4.jpg";
+    ptr->images[4] = "./src/Julci/images/img5.jpg";
+    ptr->images[5] = "./src/Julci/images/img6.jpg";
+    ptr->images[6] = "./src/Julci/images/img7.jpg";
+    ptr->images[7] = "./src/Julci/images/img8.jpg";
+    ptr->images[8] = "./src/Julci/images/img9.jpg";
+    ptr->images[9] = "./src/Julci/images/img10.jpg";
+    ptr->images[10] = "./src/Julci/images/img11.jpg";
+    ptr->images[11] = "./src/Julci/images/img12.jpg";
+    ptr->images[12] = "./src/Julci/images/img13.jpg";
+    ptr->images[13] = "./src/Julci/images/img14.jpg";
+    ptr->images[14] = "./src/Julci/images/img15.jpg";
+    ptr->images[15] = "./src/Julci/images/img16.jpg";
+    ptr->images[16] = "./src/Julci/images/Forest.jpg";
     ptr->images[17] = NULL;
     texture = sfTexture_createFromFile(ptr->images[*image_index], NULL);
     sfSprite_setTexture(sprite, texture, sfTrue);
@@ -113,10 +156,68 @@ void function(sfRenderWindow *window, int *image_index, sfTexture *texture, \
     }
 }
 
-void victory(sfRenderWindow* window)
+char *int_to_str(int nb)
+{
+    int i = nbrlen(nb);
+    int j = 0;
+    int k = pow(10, i);
+    char *str = malloc(sizeof(char) * (i + 2));
+
+    if (nb == 0)
+        return strdup("0");
+    while (j < i) {
+        str[j] = (nb % 10) + '0';
+        nb = nb / 10;
+        j++;
+    }
+    str[i] = '\0';
+    return str;
+}
+
+void draw_time(sfRenderWindow *window, bttn_t *mn)
+{
+    char *s = time_to_str(mn);
+
+    sfText_setString(mn->text, s);
+    sfText_setPosition(mn->text, mn->vecp);
+    sfRenderWindow_drawText(window, mn->text, NULL);
+    free(s);
+}
+
+char *time_to_str(bttn_t *mn)
+{
+    char *str = malloc(sizeof(char) * 6);
+    char *s = NULL;
+    //sfTime t = sfClock_getElapsedTime(mn->c);
+    int sec = (int)mn->i;
+    int minutes = sec / 60;
+    int seconds = sec % 60;
+
+    str[0] = '\0';
+    if (minutes < 10)
+        str = strcat(str, "0");
+    s = int_to_str(minutes);
+    str = strcat(str, reverse_string(s));
+    str = strcat(str, ":");
+    free(s);
+    if (seconds < 10)
+        str = strcat(str, "0");
+    s = int_to_str(seconds);
+    str = strcat(str, reverse_string(s));
+    free(s);
+    return (str);
+}
+
+void victory(sfRenderWindow* window,int t)
 {
     j = 0;
     int y = 0;
+    bttn_t mn;
+    mn.i = t;
+    mn.text = sfText_create();
+    mn.font = sfFont_createFromFile("./src/Julci/font/AVELIRE.otf");
+    mn.vecp = (sfVector2f) {400,400};
+    sfText_setFont(mn.text,mn.font);
     sfVector2f pos1 = {0, 500}; // 500
     sfIntRect rect1 = {0, 704, 64, 64};
     sfIntRect rect = {0, 0, 1920, 1080};
@@ -131,14 +232,14 @@ void victory(sfRenderWindow* window)
     sfTexture *texture;
     sfSprite *human = sfSprite_create();
     sfSprite *stat = sfSprite_create();
-    sfTexture *stat_h = sfTexture_createFromFile("images/you_win.png", NULL);
-    sfTexture *texture_h = sfTexture_createFromFile("img/male.png", NULL);
+    sfTexture *stat_h = sfTexture_createFromFile("./src/Julci/images/you_win.png", NULL);
+    sfTexture *texture_h = sfTexture_createFromFile("./src/Julci/img/male.png", NULL);
     menu_t *ptr = malloc(sizeof(menu_t));
     ptr->images = malloc(sizeof(char *) * 4);
     sprite = sfSprite_create();
-    ptr->images[0] = "images/Forests.png";
-    ptr->images[1] = "images/defaite.png";
-    texture = sfTexture_createFromFile("images/Forest.jpg", NULL);
+    ptr->images[0] = "./src/Julci/images/Forests.png";
+    ptr->images[1] = "./src/Julci/images/defaite.png";
+    texture = sfTexture_createFromFile("./src/Julci/images/Forest.jpg", NULL);
     sfSprite_setTexture(stat, stat_h, sfTrue);
     sfSprite_setTexture(sprite, texture, sfTrue);
     sfSprite_setTexture(human, texture_h, sfFalse);

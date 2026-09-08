@@ -62,7 +62,7 @@ void vu_du_tresor(sfRenderWindow *win)
     image_f1.a.c = sfClock_create();
 //clock
     image_f1.a.key = sfSprite_create();
-    image_f1.a.T = sfTexture_createFromFile("./src/Kevin/pictures_jam/tresor.jpg", NULL);
+    image_f1.a.T = sfTexture_createFromFile("./src/Kevin/images/T.png", NULL);
     sfSprite_setTexture(image_f1.a.key,image_f1.a.T,sfTrue);
     sfSprite_setScale(image_f1.a.key, (sfVector2f){1, 1});
 /*image de tresor*/

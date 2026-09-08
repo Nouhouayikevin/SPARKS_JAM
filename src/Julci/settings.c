@@ -12,7 +12,7 @@ sfSound *sound()
     sfSound *sound;
     sfSoundBuffer *musique;
     sound = sfSound_create();
-    musique = sfSoundBuffer_createFromFile("musique/song2.ogg");
+    musique = sfSoundBuffer_createFromFile("./src/Julci/musique/song2.ogg");
     sfSound_setBuffer(sound, musique);
     sfSound_play(sound);
     return sound;

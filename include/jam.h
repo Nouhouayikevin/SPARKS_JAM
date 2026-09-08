@@ -15,6 +15,7 @@
 #include <unistd.h>
 #include <string.h>
 #include <stdio.h>
+#include <math.h>
 
 /*____Protype__of___Ramdon_____*/
 
@@ -39,7 +40,6 @@ int menu_event(sfRenderWindow *window, sfEvent event, int *image_index);
 void menu(sfRenderWindow* window);
 int menu_event(sfRenderWindow *window, sfEvent event, int *image_index);
 void flame_animation(sfRenderWindow **window, int flame_index);
-
 /*____Protype__of___Kevin_____*/
 typedef struct anim_s {
     sfVector2f vec;
@@ -82,11 +82,32 @@ void explosion(anim_t *R, double timelaspe, sfClock *clock);
 
 
 /*____Protype__of___Julci_____*/
+typedef struct bttn {
+    int play;
+    int animate;
+    sfRectangleShape *R;
+    sfSprite *key;
+    sfText *text;
+    sfText *text1;
+    sfFont *font;
+    sfFont *font1;
+    sfTexture *T;
+    sfVector2f vecp;
+    sfVector2f vec_s;
+    sfIntRect rect;
+    sfClock *c;
+    sfEvent e;
+    int i;
+    sfMusic *m;
+}bttn_t;
 
+char *time_to_str(bttn_t *mn);
 void move_rect2(sfVector2f *pos,sfIntRect *rect);
 int menu_event2(sfRenderWindow *window, sfEvent event, int *image_index);
 void function(sfRenderWindow *window, int *image_index, sfTexture *texture, sfSprite *sprite);
-void victory(sfRenderWindow* window);
+void victory(sfRenderWindow* window, int t);
+void defeat(sfRenderWindow* window, int t);
+char *reverse_string(char *str);
 
 /*____Protype__of___Joseph_____*/
 
@@ -141,6 +162,8 @@ typedef struct {
     sfRectangleShape *outline;
     int collide;
 } move_player_t;
+void draw_time(sfRenderWindow *window, bttn_t *mn);
+
 rect_t *create_rectangle(rect_t *rectangle);
 move_player_t event_handler(sfEvent e, sfRenderWindow *w, sfVector2f sc, move_player_t p, rect_t *rectangle);
 int rect_col(sfRectangleShape *rect2, sfVector2f pos, sfVector2f pos_size);

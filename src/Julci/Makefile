@@ -5,7 +5,9 @@
 ## Makefile
 ##
 
-SRC	=	victory.c	\
+SRC	=	settings.c	\
+		initialiser.c	\
+		text_write.c
 
 OBJ	=	$(SRC:.c=.o)
 
